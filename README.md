@@ -2,7 +2,8 @@
 cub3d
 
 # 참고사이트
-https://elearning.intra.42.fr/notions/266/subnotions/930/videos/1021\n
+https://elearning.intra.42.fr/notions/266/subnotions/930/videos/1021
+
 https://elearning.intra.42.fr/notions/266/subnotions/931/videos/1022
 
 # Criteria
