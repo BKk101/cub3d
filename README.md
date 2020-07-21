@@ -1,6 +1,10 @@
 # cub3d
 cub3d
 
+# 참고사이트
+https://elearning.intra.42.fr/notions/266/subnotions/930/videos/1021
+https://elearning.intra.42.fr/notions/266/subnotions/931/videos/1022
+
 # Criteria
 Philo_one code
 - Check the code of philo_one for the following things and ask for explanation.
