@@ -1,7 +1,7 @@
 # cub3d
 cub3d
 
-
+# Criteria
 Philo_one code
 - Check the code of philo_one for the following things and ask for explanation.
 - Check if there is one thread per philosopher.
