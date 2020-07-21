@@ -8,8 +8,7 @@ Philo_one code
 - Check if there is a mutex per fork and that it's used to check the fork value and/or change it.
 - Check if the output is protected against multiple access. To avoid a scrambled view.
 - Check how the death of a philosopher is checked and if there is a mutex to protect that a philosopher dies and start eating at the same time.
- Yes
- No
+
 Philo_one test
 - Do not test with more than 200 philosphers
 - Do not test with time_to_die or time_to_eat or time_to_sleep under 60 ms
@@ -19,16 +18,14 @@ Philo_one test
 - Test with 4 310 200 100, a philosopher should die!
 - Test with 2 philosophers and check the different times (a death delayed by more than 10 ms is unacceptable).
 - Test your own values to check all the rules. Check if a philosopher dies at the right time, if they don't steal forks, etc.
- Yes
- No
+
 Philo_two code
 - Check the code of philo_two for the following things and ask for explanation.
 - Check if there is one thread per philosopher.
 - Check if there is a single semaphore that represents the number of forks.
 - Check if the output is protected against multiple access. To avoid a scrambled view.
 - Check how the death of a philosopher is checked and if there is a semaphore to protect that a philosopher dies and start eating at the same time.
- Yes
- No
+
 Philo_two test
 - Do not test with more than 200 philosphers
 - Do not test with time_to_die or time_to_eat or time_to_sleep under 60 ms
@@ -38,16 +35,14 @@ Philo_two test
 - Test with 4 310 200 100, a philosopher should die!
 - Test with 2 philosophers and check the different times (a death delayed by more than 10 ms is unacceptable).
 - Test your own values to check all the rules. Check if a philosopher dies at the right time, if they don't steal forks, etc.
- Yes
- No
+
 Philo_three code
 - Check the code of philo_three for the following things and ask for explanation.
 - Check if there will be one process per philosopher and that the first process waits for all of them.
 - Check if there is a single semaphore that represent the number of forks.
 - Check if the output is protected against multiple access. To avoid a scrambled view.
 - Check how the death of a philosopher is checked and if there is a semaphore to protect that a philosopher dies and start eating at the same time.
- Yes
- No
+
 Philo_three test
 - Do not test with more than 200 philosphers
 - Do not test with time_to_die or time_to_eat or time_to_sleep under 60 ms
