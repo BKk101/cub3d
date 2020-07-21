@@ -10,4 +10,6 @@ https://github.com/yohan9612/cub3d
 
 https://github.com/taelee42/mlx_example
 
+https://harm-smits.github.io/42docs/libs/minilibx/introduction.html
+
 # Criteria
