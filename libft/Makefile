@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: bk <bk@student.42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/02/26 16:42:20 by bykim             #+#    #+#              #
-#    Updated: 2020/04/19 21:02:44 by bykim            ###   ########.fr        #
+#    Updated: 2020/07/30 02:41:13 by bk               ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ bonus : $(OBJS) $(BOBJS)
 clean :
 	rm -f $(OBJS) $(BOBJS)
 
-fclean : clean
+fclean :
 	rm -f $(NAME)
 
 re : fclean all
