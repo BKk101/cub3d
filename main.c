@@ -33,12 +33,37 @@ int	keyboard(int keycode, t_vars *vars)
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
 	}
+	else if (keycode == 0)
+	{
+		printf("a is pressed\n");
+	}
+	return 0;
+}
+
+int key_release(int keycode, void *param)
+{
+	if (keycode == 0)
+	{
+		printf("a is released\n");
+	}
 	return 0;
 }
 
 int mouse(int button, int x, int y, t_vars *vars)
 {
 	printf("%d x:%d y:%d\n", button, x, y);
+	return 0;
+}
+
+int mouse_move(int x, int y, void *param)
+{
+	printf("x:%d y:%d\n", x,y);
+	return 0;
+}
+
+int expose(void *param)
+{
+	printf("hi\n");
 	return 0;
 }
 
@@ -70,13 +95,14 @@ int main()
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 500, 500, "new window");
 	vars.start = clock();
-	vars.img = mlx_xpm_file_to_image(vars.mlx, "./pengsu.xpm", &img_wid, &img_hei);
-
+	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &img_wid, &img_hei);
 
 	//mlx_key_hook(vars.win, keyboard, &vars);
-	//mlx_mouse_hook(vars.win, mouse, &vars);
+	mlx_mouse_hook(vars.win, mouse, &vars);
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
-	mlx_hook(vars.win, 4, 0, mouse, &vars);
+	mlx_hook(vars.win, 3, 0, key_release, &vars);
+	mlx_hook(vars.win, 6, 0, mouse_move, &vars);
+	mlx_hook(vars.win, 12, 0, expose, &vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	mlx_loop(vars.mlx);
 }
