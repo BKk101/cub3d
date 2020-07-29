@@ -1,4 +1,5 @@
 #include "./minilibx/mlx.h"
+#include "./libft/libft.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -67,14 +68,13 @@ int render_next_frame(t_vars *vars)
 {000,255,000},{000,000,255},{000,000,102},{127,000,255}};
 	
 	vars->elapsed = (double)(clock() -  vars->start) / CLOCKS_PER_SEC;
-	int a = (int)(5 * vars->elapsed);
+	int a = (int)(10 * vars->elapsed);
 	vars->color = create_trgb(100 * a % 100, rainbow[a%7][0], rainbow[a%7][1], rainbow[a%7][2]);
 	for (int i=0;i<500;i++) {
 		for (int j=0;j<500;j++) {
 			mlx_pixel_put(vars->mlx, vars->win, 0+i, 0+j, vars->color);
 		}
 	}
-	//mlx_string_put(vars->mlx, vars->win, 200, 200, vars->color, "hyein");
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img, 125, 150);
 	return 0;
 }
@@ -96,7 +96,6 @@ int main()
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);
 	mlx_hook(vars.win, 6, 0, mouse_move, &vars);
-	mlx_hook(vars.win, 12, 0, expose, &vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	mlx_loop(vars.mlx);
 }
