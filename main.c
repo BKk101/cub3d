@@ -1,4 +1,4 @@
-#include <mlx.h>
+#include "./minilibx/mlx.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -58,12 +58,6 @@ int mouse(int button, int x, int y, t_vars *vars)
 int mouse_move(int x, int y, void *param)
 {
 	printf("x:%d y:%d\n", x,y);
-	return 0;
-}
-
-int expose(void *param)
-{
-	printf("hi\n");
 	return 0;
 }
 
