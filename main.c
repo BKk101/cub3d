@@ -92,15 +92,16 @@ int main()
 	vars.win = mlx_new_window(vars.mlx, 500, 500, "new window");
 	vars.start = clock();
 	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &img_wid, &img_hei);
-	char **ptr;
+	char *arr[10];
 
 	int fd = open("./maps/map.cub", O_RDONLY);
-	get_next_line(fd, ptr);
-	//printf("%s\n", *ptr);
+	printf("%d\n", fd);
+	get_next_line(fd, &arr[0]);
+	printf("%s\n", arr[0]);
 	mlx_mouse_hook(vars.win, mouse, &vars);
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);
-	mlx_hook(vars.win, 6, 0, mouse_move, &vars);
+	//mlx_hook(vars.win, 6, 0, mouse_move, &vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	mlx_loop(vars.mlx);
 }
