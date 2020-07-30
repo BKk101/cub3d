@@ -1,20 +1,4 @@
-#include "./minilibx/mlx.h"
-#include "./libft/libft.h"
-#include "./gnl/get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
-
-typedef struct  s_vars {
-    void        *mlx;
-    void        *win;
-	void		*img;
-	int			color;
-	clock_t		start;
-	double		elapsed;
-
-}               t_vars;
+#include "./cub3d.h"
 
 int		create_trgb(int t, int r, int g, int b)
 {
@@ -81,7 +65,7 @@ int render_next_frame(t_vars *vars)
 	return 0;
 }
 
-int main()
+int main(int argc, char **argv)
 {
 	t_vars vars;
 	int img_wid = 500;
@@ -92,16 +76,11 @@ int main()
 	vars.win = mlx_new_window(vars.mlx, 500, 500, "new window");
 	vars.start = clock();
 	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &img_wid, &img_hei);
-	char *arr[10];
 
-	int fd = open("./maps/map.cub", O_RDONLY);
-	printf("%d\n", fd);
-	get_next_line(fd, &arr[0]);
-	printf("%s\n", arr[0]);
-	mlx_mouse_hook(vars.win, mouse, &vars);
+	map_read(argv[1]);
+	//2dmap_draw();
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);
-	//mlx_hook(vars.win, 6, 0, mouse_move, &vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	mlx_loop(vars.mlx);
 }

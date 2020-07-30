@@ -14,4 +14,6 @@ https://harm-smits.github.io/42docs/libs/minilibx/introduction.html
 
 https://github.com/VBrazhnik/FdF/wiki/How-to-handle-mouse-buttons-and-key-presses%3F
 
+https://lodev.org/cgtutor/raycasting.html
+
 # Criteria
