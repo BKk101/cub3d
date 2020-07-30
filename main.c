@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 	vars.start = clock();
 	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &img_wid, &img_hei);
 
-	map_read(argv[1]);
+	//map_read(argv[1]);
 	//2dmap_draw();
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);

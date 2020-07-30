@@ -31,20 +31,18 @@ int map_read(const char *map_path)
 	char **dptr2;
 	t_map map_info;
 	t_list *list;
-	t_list *lptr;
 
 	//validtest();
 	ft_memset(&map_info, 0, sizeof(t_map));
 	fd = open(map_path, O_RDONLY);
-	//list = ft_lstnew("");
+	list = malloc(sizeof(t_list));
 	while (get_next_line(fd, &line[0]) == 1)//line[0] need free 
 	{
 		if (line[0] && map_info.r && map_info.no && map_info.so && map_info.we && map_info.ea
 	&& map_info.s && map_info.f && map_info.c)
 		{
 			//연결리스트
-			lptr = ft_lstnew(line[0]);
-			ft_lstadd_back(&list, lptr);
+			ft_lstadd_back(&(list->next), ft_lstnew(line[0]));
 		}
 		else 
 		{
@@ -103,11 +101,14 @@ int map_read(const char *map_path)
 		free(line[0]);
 	}
 	//eof 처리
-	lptr = ft_lstnew(line[0]);
-	ft_lstadd_back(&list, lptr);
+	ft_lstadd_back(&(list->next), ft_lstnew(line[0]));
 	//lst free
 	close(fd);
-	while (list->next)
-		printf("%s\n", list->content);
+	t_list *curr;
+	curr = list->next;
+	while (curr->next) {
+		printf("%s\n", curr->content);
+		curr = curr->next;
+	}
 	return 0;
 }
