@@ -26,7 +26,7 @@ int map_read(const char *map_path)
 {
 	int fd;
 	int i;
-	char *line[1];
+	char **line;
 	char **dptr;
 	char **dptr2;
 	t_map map_info;
@@ -34,20 +34,21 @@ int map_read(const char *map_path)
 
 	//validtest();
 	ft_memset(&map_info, 0, sizeof(t_map));
-	fd = open(map_path, O_RDONLY);
 	list = malloc(sizeof(t_list));
-	while (get_next_line(fd, &line[0]) == 1)//line[0] need free 
+	fd = open(map_path, O_RDONLY);
+	line = (char **)malloc(sizeof(char *));
+	while (get_next_line(fd, line) == 1)//line[0] need free 
 	{
-		if (line[0] && map_info.r && map_info.no && map_info.so && map_info.we && map_info.ea
+		if (*line && map_info.r && map_info.no && map_info.so && map_info.we && map_info.ea
 	&& map_info.s && map_info.f && map_info.c)
 		{
 			//연결리스트
-			ft_lstadd_back(&(list->next), ft_lstnew(line[0]));
+			ft_lstadd_back(&(list->next), ft_lstnew(*line));
 		}
-		else 
+		else if (*line != 0)
 		{
-			dptr = ft_split(line[0], ' ');
-			if (ft_strncmp("R", dptr[0],sizeof(dptr[0])) == 0)
+			dptr = ft_split(*line, ' ');
+			if (ft_strncmp("R", dptr[0], sizeof(dptr[0])) == 0)
 			{
 				map_info.r = 1;
 				map_info.wid = ft_atoi(dptr[1]);
@@ -98,10 +99,10 @@ int map_read(const char *map_path)
 			}
 			//free(dptr); 0,1 or 0,1,2
 		}
-		free(line[0]);
+		free(*line);
 	}
 	//eof 처리
-	ft_lstadd_back(&(list->next), ft_lstnew(line[0]));
+	ft_lstadd_back(&(list->next), ft_lstnew(*line));
 	//lst free
 	close(fd);
 	t_list *curr;

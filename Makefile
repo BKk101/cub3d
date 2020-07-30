@@ -12,7 +12,7 @@ $(NAME) :
 	make -C libft
 	make -C gnl
 	make -C minilibx
-	$(CC) $(SRCS) $(LINK) -o $@
+	$(CC) -g $(SRCS) $(LINK) -o $@
 clean :
 	rm -f $(OBJS)
 	make clean -C minilibx
