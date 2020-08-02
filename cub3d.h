@@ -21,23 +21,11 @@ typedef struct  s_vars {
 
 typedef struct	s_map
 {
-	int			r;
-	int			no;
-	int			so;
-	int			we;
-	int			ea;
-	int			s;
-	int			f;
-	int			c;
+	int			info_list[8]; // r, no, so, we, ea, s, f, c
 	int			wid;
 	int			hei;
-	char		*no_path;
-	char		*so_path;
-	char		*we_path;
-	char		*ea_path;
-	char		*s_path;
-	int			f_rgb[3];
-	int			c_rgb[3];
+	char		*path_list[5]; // NO,SO,WE,EA,S
+	int			rgb[2][3]; // F, C
 	
 }				t_map;
 
