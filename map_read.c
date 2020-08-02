@@ -29,9 +29,7 @@ int		map_read(const char *map_path)
 	{
 		if (*line && map_info.r && map_info.no && map_info.so && map_info.we && map_info.ea
 	&& map_info.s && map_info.f && map_info.c)
-		{
 			ft_lstadd_back(&(list->next), ft_lstnew(line));
-		}
 		else if (*line)
 		{
 			i = 0;
@@ -88,17 +86,9 @@ int		map_read(const char *map_path)
 			free_dptr(dptr, i);
 			free(dptr);
 		}
-		free(line);
 	}
 	ft_lstadd_back(&(list->next), ft_lstnew(line));
-	free(line);
 	//lst free
 	close(fd);
-	t_list *curr;
-	curr = list->next;
-	while (curr) {
-		printf("%s\n", (char *)curr->content);
-		curr = curr->next;
-	}
 	return 0;
 }

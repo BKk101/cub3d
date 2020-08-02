@@ -16,4 +16,4 @@ https://github.com/VBrazhnik/FdF/wiki/How-to-handle-mouse-buttons-and-key-presse
 
 https://lodev.org/cgtutor/raycasting.html
 
-# Criteria
+# 평가기준

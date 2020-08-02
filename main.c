@@ -75,7 +75,7 @@ int main(int argc, char **argv)
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 500, 500, "new window");
 	vars.start = clock();
-	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &img_wid, &img_hei);
+	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/rilakkuma.xpm", &img_wid, &img_hei);
 	map_read("./maps/map.cub");
 	//2dmap_draw();
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);

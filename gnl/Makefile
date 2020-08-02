@@ -2,14 +2,13 @@ CC=gcc
 CFLAGS= -Wall -Wextra -Werror
 
 NAME=libgnl.a
-HEADER=get_next_line.h
 SRCS=$(wildcard *.c)
 OBJS=$(SRCS:.c=.o)
 
 all : $(NAME)
 
 %.o : %.c
-	$(CC) -c $(CFLAGS) $< -I$(HEADER)
+	$(CC) -c $(CFLAGS) $< -I.
 
 $(NAME) : $(OBJS)
 	ar -rc $@ $(OBJS)
