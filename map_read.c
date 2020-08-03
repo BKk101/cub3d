@@ -1,6 +1,11 @@
 #include "./cub3d.h"
 
 char *g_info[] = {"R", "NO", "SO", "WE", "EA", "S", "F", "C"};
+char **g_dptr;
+char **g_dptr2;
+int g_i;
+int g_j;
+int g_idx;
 
 void	free_dptr(char **start, int len)
 {
@@ -13,36 +18,30 @@ void	free_dptr(char **start, int len)
 
 void	read_info(t_map *map_info, char *line)
 {
-	int i;
-	int j;
-	int idx;
-	char **dptr;
-	char **dptr2;
-
-	i = 0;
-	idx = 0;
-	dptr = ft_split(line, ' ');
-	while (ft_strncmp(g_info[idx], dptr[i], sizeof(dptr[i])) != 0)
-		idx++;
-	map_info->info_list[idx] = 1;
-	if (idx == 0)
+	g_i = 0;
+	g_idx = 0;
+	g_dptr = ft_split(line, ' ');
+	while (ft_strncmp(g_info[g_idx], g_dptr[g_i], sizeof(g_dptr[g_i])) != 0)
+		g_idx++;
+	map_info->info_list[g_idx] = 1;
+	if (g_idx == 0)
 	{
-		map_info->wid = ft_atoi(dptr[++i]);
-		map_info->hei = ft_atoi(dptr[++i]);
+		map_info->wid = ft_atoi(g_dptr[++g_i]);
+		map_info->hei = ft_atoi(g_dptr[++g_i]);
 	}
-	else if (idx == 6 || idx == 7)
+	else if (g_idx == 6 || g_idx == 7)
 	{
-		dptr2 = ft_split(dptr[++i], ',');
-		j = -1;
-		while (++j < 3)
-			map_info->rgb[idx - 6][j] = ft_atoi(dptr2[j]);
-		free_dptr(dptr2, j - 1);
-		free(dptr2);
+		g_dptr2 = ft_split(g_dptr[++g_i], ',');
+		g_j = -1;
+		while (++g_j < 3)
+			map_info->rgb[g_idx - 6][g_j] = ft_atoi(g_dptr2[g_j]);
+		free_dptr(g_dptr2, g_j - 1);
+		free(g_dptr2);
 	}
 	else
-		map_info->path_list[idx - 1] = ft_strdup(dptr[++i]);
-	free_dptr(dptr, i);
-	free(dptr);
+		map_info->path_list[g_idx - 1] = ft_strdup(g_dptr[++g_i]);
+	free_dptr(g_dptr, g_i);
+	free(g_dptr);
 }
 
 int		map_info_check(t_map map_info)
@@ -59,8 +58,8 @@ int		map_info_check(t_map map_info)
 
 int		map_read(t_map *map_info, t_list **list, const char *map_path)
 {
-	int fd;
-	char *line;
+	int		fd;
+	char	*line;
 
 	//mpavalidtest();
 	ft_memset(map_info, 0, sizeof(t_map));
@@ -75,7 +74,6 @@ int		map_read(t_map *map_info, t_list **list, const char *map_path)
 			read_info(map_info, line);
 	}
 	ft_lstadd_back(&((*list)->next), ft_lstnew(line));
-	//lst free
 	close(fd);
 	return 0;
 }
