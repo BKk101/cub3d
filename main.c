@@ -68,6 +68,8 @@ int render_next_frame(t_vars *vars)
 int main(int argc, char **argv)
 {
 	t_vars vars;
+	t_map map_info;
+	t_list *map_head;
 	int img_wid = 500;
 	int img_hei = 500;
 
@@ -76,7 +78,13 @@ int main(int argc, char **argv)
 	vars.win = mlx_new_window(vars.mlx, 500, 500, "new window");
 	vars.start = clock();
 	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/rilakkuma.xpm", &img_wid, &img_hei);
-	map_read("./maps/map.cub");
+	map_read(&map_info, &map_head, "./maps/map.cub");
+	map_head = map_head->next;
+	while (map_head)
+	{
+		printf("%s\n", (char *)map_head->content);
+		map_head = map_head->next;
+	}
 	//2dmap_draw();
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);

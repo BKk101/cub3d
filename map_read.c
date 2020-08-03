@@ -11,7 +11,7 @@ void	free_dptr(char **start, int len)
 		free(*(start + i));
 }
 
-void	func(t_map *map_info, char *line)
+void	read_info(t_map *map_info, char *line)
 {
 	int i;
 	int j;
@@ -36,7 +36,8 @@ void	func(t_map *map_info, char *line)
 		j = -1;
 		while (++j < 3)
 			map_info->rgb[idx - 6][j] = ft_atoi(dptr2[j]);
-		//free(dptr2)
+		free_dptr(dptr2, j - 1);
+		free(dptr2);
 	}
 	else
 		map_info->path_list[idx - 1] = ft_strdup(dptr[++i]);
@@ -56,26 +57,24 @@ int		map_info_check(t_map map_info)
 	return 1;
 }
 
-int		map_read(const char *map_path)
+int		map_read(t_map *map_info, t_list **list, const char *map_path)
 {
 	int fd;
 	char *line;
-	t_map map_info;
-	t_list *list;
 
 	//mpavalidtest();
-	ft_memset(&map_info, 0, sizeof(t_map));
-	list = malloc(sizeof(t_list));
-	ft_memset(list, 0, sizeof(t_list));
+	ft_memset(map_info, 0, sizeof(t_map));
+	*list = malloc(sizeof(t_list));
+	ft_memset(*list, 0, sizeof(t_list));
 	fd = open(map_path, O_RDONLY);
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (*line && map_info_check(map_info))
-			ft_lstadd_back(&(list->next), ft_lstnew(line));
+		if (*line && map_info_check(*map_info))
+			ft_lstadd_back(&((*list)->next), ft_lstnew(line));
 		else if (*line)
-			func(&map_info, line);
+			read_info(map_info, line);
 	}
-	ft_lstadd_back(&(list->next), ft_lstnew(line));
+	ft_lstadd_back(&((*list)->next), ft_lstnew(line));
 	//lst free
 	close(fd);
 	return 0;

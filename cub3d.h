@@ -29,6 +29,6 @@ typedef struct	s_map
 	
 }				t_map;
 
-int map_read(const char *map_path);
+int map_read(t_map *map_info, t_list **list, const char *map_path);
 
 #endif
