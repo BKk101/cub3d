@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_read.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
+/*   Updated: 2020/08/04 18:28:07 by bykim            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./cub3d.h"
 
 char *g_info[] = {"R", "NO", "SO", "WE", "EA", "S", "F", "C"};
@@ -43,8 +55,8 @@ int		map_info_check(t_map map_info)
 	while (i < 8 && map_info.info_list[i])
 		i++;
 	if (i != 8)
-		return 0;
-	return 1;
+		return (0);
+	return (1);
 }
 
 void	fill_2darr(t_map2d *map, t_list *list)
@@ -76,14 +88,15 @@ int		make_2darr(t_map2d *map, t_list *list)
 	curr = list->next;
 	while (curr)
 	{
-		map->row = ft_strlen((char *)curr->content) > map->row ? ft_strlen((char *)curr->content) : map->row;
+		map->row = ft_strlen((char *)curr->content) > map->row ?
+ft_strlen((char *)curr->content) : map->row;
 		curr = curr->next;
 	}
 	while (--map->col >= 0)
 		map->arr[map->col] = (int *)malloc(sizeof(int) * map->row);
 	map->col = ft_lstsize(list->next);
 	fill_2darr(map, list);
-	return 0;
+	return (0);
 }
 
 int		map_read(t_map *map_info, t_map2d *map, const char *map_path)
@@ -92,7 +105,6 @@ int		map_read(t_map *map_info, t_map2d *map, const char *map_path)
 	char	*line;
 	t_list	*list;
 
-	//mpavalidtest();
 	ft_memset(map_info, 0, sizeof(t_map));
 	list = malloc(sizeof(t_list));
 	ft_memset(list, 0, sizeof(t_list));
@@ -107,5 +119,5 @@ int		map_read(t_map *map_info, t_map2d *map, const char *map_path)
 	ft_lstadd_back(&(list->next), ft_lstnew(line));
 	close(fd);
 	make_2darr(map, list);
-	return 0;
+	return (0);
 }

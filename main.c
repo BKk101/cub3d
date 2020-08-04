@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
+/*   Updated: 2020/08/04 18:29:38 by bykim            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./cub3d.h"
 
 int		create_trgb(int t, int r, int g, int b)
@@ -79,11 +91,7 @@ int main(int argc, char **argv)
 	vars.start = clock();
 	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &img_wid, &img_hei);
 	map_read(&map_info, &map_2d, "./maps/map.cub");
-	for (int i=0;i<map_2d.col;i++) {
-		for (int j=0;j<map_2d.row;j++)
-			printf("%4d", map_2d.arr[i][j]);
-		printf("\n");
-	}
+	//map_validtest();
 	//2dmap_draw();
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);
