@@ -56,24 +56,66 @@ int		map_info_check(t_map map_info)
 	return 1;
 }
 
-int		map_read(t_map *map_info, t_list **list, const char *map_path)
+void	fill_2darr(t_list *list, int ***arr, int col, int row)
+{
+	int len;
+
+	g_idx = -1;
+	list = list->next;
+	while (++g_idx < col)
+	{
+		g_i = -1;
+		len = ft_strlen(list->content);
+		while (++g_i < len)
+			*arr[g_idx][g_i] = ((char *)list->content)[g_i] - '0';
+		if (len < row)
+			while (len < row)
+				*arr[g_idx][len++] = -16;
+		list = list->next;
+	}
+}
+
+int		**make_2darr(t_list *list)
+{
+	int	**arr;
+	t_list *curr;
+
+	g_i = ft_lstsize(list->next);
+	g_j = 0;
+	arr = (int **)malloc(sizeof(int *) * g_i);
+	curr = list->next;
+	while (curr)
+	{
+		g_j = ft_strlen((char *)curr->content) > g_j ? ft_strlen((char *)curr->content) : g_j;
+		curr = curr->next;
+	}
+	while (--g_i >= 0)
+		arr[g_i] = (int *)malloc(sizeof(int) * g_j);
+	g_i = ft_lstsize(list->next);
+	fill_2darr(list, &arr, g_i, g_j);
+	return (arr);
+}
+
+int		map_read(t_map *map_info, int ***map, const char *map_path)
 {
 	int		fd;
 	char	*line;
+	t_list	*list;
 
 	//mpavalidtest();
 	ft_memset(map_info, 0, sizeof(t_map));
-	*list = malloc(sizeof(t_list));
-	ft_memset(*list, 0, sizeof(t_list));
+	list = malloc(sizeof(t_list));
+	ft_memset(list, 0, sizeof(t_list));
 	fd = open(map_path, O_RDONLY);
 	while (get_next_line(fd, &line) == 1)
 	{
 		if (*line && map_info_check(*map_info))
-			ft_lstadd_back(&((*list)->next), ft_lstnew(line));
+			ft_lstadd_back(&(list->next), ft_lstnew(line));
 		else if (*line)
 			read_info(map_info, line);
 	}
-	ft_lstadd_back(&((*list)->next), ft_lstnew(line));
+	ft_lstadd_back(&(list->next), ft_lstnew(line));
 	close(fd);
+	*map = make_2darr(list);
 	return 0;
 }

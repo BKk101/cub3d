@@ -54,7 +54,7 @@ int render_next_frame(t_vars *vars)
 {000,255,000},{000,000,255},{000,000,102},{127,000,255}};
 	
 	vars->elapsed = (double)(clock() -  vars->start) / CLOCKS_PER_SEC;
-	int a = (int)(10 * vars->elapsed);
+	int a = (int)(1 * vars->elapsed);
 	vars->color = create_trgb(100 * a % 100, rainbow[a%7][0], rainbow[a%7][1], rainbow[a%7][2]);
 	for (int i=0;i<500;i++) {
 		for (int j=0;j<500;j++) {
@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 {
 	t_vars	vars;
 	t_map	map_info;
-	t_list	*map_head;
+	int		**map_2d;
 	int		img_wid = 500;
 	int		img_hei = 500;
 
@@ -77,8 +77,8 @@ int main(int argc, char **argv)
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, 500, 500, "new window");
 	vars.start = clock();
-	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/rilakkuma.xpm", &img_wid, &img_hei);
-	map_read(&map_info, &map_head, "./maps/map.cub");
+	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &img_wid, &img_hei);
+	map_read(&map_info, &map_2d, "./maps/map.cub");
 	//2dmap_draw();
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);
