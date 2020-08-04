@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 {
 	t_vars	vars;
 	t_map	map_info;
-	int		**map_2d;
+	t_map2d map_2d;
 	int		img_wid = 500;
 	int		img_hei = 500;
 
@@ -79,6 +79,11 @@ int main(int argc, char **argv)
 	vars.start = clock();
 	vars.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &img_wid, &img_hei);
 	map_read(&map_info, &map_2d, "./maps/map.cub");
+	for (int i=0;i<map_2d.col;i++) {
+		for (int j=0;j<map_2d.row;j++)
+			printf("%4d", map_2d.arr[i][j]);
+		printf("\n");
+	}
 	//2dmap_draw();
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_hook(vars.win, 3, 0, key_release, &vars);

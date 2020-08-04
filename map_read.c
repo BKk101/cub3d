@@ -7,15 +7,6 @@ int g_i;
 int g_j;
 int g_idx;
 
-void	free_dptr(char **start, int len)
-{
-	int i;
-
-	i = -1;
-	while (++i <= len)
-		free(*(start + i));
-}
-
 void	read_info(t_map *map_info, char *line)
 {
 	g_i = 0;
@@ -56,47 +47,46 @@ int		map_info_check(t_map map_info)
 	return 1;
 }
 
-void	fill_2darr(t_list *list, int ***arr, int col, int row)
+void	fill_2darr(t_map2d *map, t_list *list)
 {
 	int len;
 
-	g_idx = -1;
+	g_i = -1;
 	list = list->next;
-	while (++g_idx < col)
+	while (++g_i < map->col)
 	{
-		g_i = -1;
+		g_j = -1;
 		len = ft_strlen(list->content);
-		while (++g_i < len)
-			*arr[g_idx][g_i] = ((char *)list->content)[g_i] - '0';
-		if (len < row)
-			while (len < row)
-				*arr[g_idx][len++] = -16;
+		while (++g_j < len)
+			map->arr[g_i][g_j] = ((char *)list->content)[g_j] - '0';
+		if (len < map->row)
+			while (len < map->row)
+				map->arr[g_i][len++] = -16;
 		list = list->next;
 	}
 }
 
-int		**make_2darr(t_list *list)
+int		make_2darr(t_map2d *map, t_list *list)
 {
-	int	**arr;
 	t_list *curr;
 
-	g_i = ft_lstsize(list->next);
-	g_j = 0;
-	arr = (int **)malloc(sizeof(int *) * g_i);
+	map->col = ft_lstsize(list->next);
+	map->row = 0;
+	map->arr = (int **)malloc(sizeof(int *) * map->col);
 	curr = list->next;
 	while (curr)
 	{
-		g_j = ft_strlen((char *)curr->content) > g_j ? ft_strlen((char *)curr->content) : g_j;
+		map->row = ft_strlen((char *)curr->content) > map->row ? ft_strlen((char *)curr->content) : map->row;
 		curr = curr->next;
 	}
-	while (--g_i >= 0)
-		arr[g_i] = (int *)malloc(sizeof(int) * g_j);
-	g_i = ft_lstsize(list->next);
-	fill_2darr(list, &arr, g_i, g_j);
-	return (arr);
+	while (--map->col >= 0)
+		map->arr[map->col] = (int *)malloc(sizeof(int) * map->row);
+	map->col = ft_lstsize(list->next);
+	fill_2darr(map, list);
+	return 0;
 }
 
-int		map_read(t_map *map_info, int ***map, const char *map_path)
+int		map_read(t_map *map_info, t_map2d *map, const char *map_path)
 {
 	int		fd;
 	char	*line;
@@ -116,6 +106,6 @@ int		map_read(t_map *map_info, int ***map, const char *map_path)
 	}
 	ft_lstadd_back(&(list->next), ft_lstnew(line));
 	close(fd);
-	*map = make_2darr(list);
+	make_2darr(map, list);
 	return 0;
 }

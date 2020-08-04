@@ -29,6 +29,14 @@ typedef struct	s_map
 	
 }				t_map;
 
-int map_read(t_map *map_info, int ***map, const char *map_path);
+typedef struct	s_map2d
+{
+	int col;
+	int row;
+	int **arr;
+}				t_map2d;
+
+int map_read(t_map *map_info, t_map2d *map, const char *map_path);
+void	free_dptr(char **start, int len);
 
 #endif
