@@ -1,7 +1,7 @@
 
 CC=gcc
 CFLAGS= -Wall -Werror -Wextra
-LINK= -lft -lgnl -lmlx -framework OpenGL -framework AppKit -L./minilibx -L./libft -L./gnl
+LINK= -lft -lgnl -lmlx -framework OpenGL -framework AppKit -L./libft -L./gnl -L./minilibx
 NAME=cub3d.out
 SRCS=$(wildcard *.c)
 LIB=$(wildcard *.a)

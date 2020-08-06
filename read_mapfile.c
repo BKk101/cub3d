@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_mapfile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/08/05 18:59:13 by bk               ###   ########.fr       */
+/*   Updated: 2020/08/06 18:02:25 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,14 @@ void	fill_2darr(t_mapinfo *map, t_list *list)
 		g_j = -1;
 		len = ft_strlen(list->content);
 		while (++g_j < len)
+		{
 			map->arr[g_i][g_j] = ((char *)list->content)[g_j] - '0';
+			if (((char *)list->content)[g_j] > 68 && ((char *)list->content)[g_j] < 88)
+			{
+				map->posX = g_j;
+				map->posY = g_i;
+			}
+		}
 		if (len < map->col)
 			while (len < map->col)
 				map->arr[g_i][len++] = -16;

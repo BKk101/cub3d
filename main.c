@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
+/*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/08/05 19:23:13 by bk               ###   ########.fr       */
+/*   Updated: 2020/08/06 19:16:08 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,23 +93,25 @@ void	draw_rectangles(t_vars *vars)
 		i++;
 	}
 }
+
 int render_next_frame(t_vars *vars)
 {
 	int rainbow[7][3] = {{255,000,000}, {255,102,000}, {255,255,000},
 {000,255,000},{000,000,255},{000,000,102},{127,000,255}};
 
 	vars->elp_time = (double)(clock() -  vars->str_time) / CLOCKS_PER_SEC;
-	int a = (int)(10 * vars->elp_time);
+	int a = (int)(100 * vars->elp_time);
 	vars->color = create_trgb(100 * a % 100, rainbow[a%7][0], rainbow[a%7][1], rainbow[a%7][2]);
 	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img_pic.img, 125, 125);
-	draw_rectangles(vars);
-	mlx_put_image_to_window(vars->mlx, vars->win, vars->img_map.img, 0, 0);
+	//draw_rectangles(vars);
+	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img_map.img, 0, 0);
+	raycast(vars);
 	return 0;
 }
 
 int main(int argc, char **argv)
 {
-	t_vars	vars;
+	t_vars vars;
 	int wid = 100;
 	int hei = 100;
 
@@ -122,7 +124,7 @@ int main(int argc, char **argv)
 	vars.img_map.img = mlx_new_image(vars.mlx, vars.map_info.col * TILE_SIZE, vars.map_info.row * TILE_SIZE);
 	vars.img_map.data = (int *)mlx_get_data_addr(vars.img_map.img, &vars.img_map.bpp,
 &vars.img_map.size_l, &vars.img_map.endian);
-	
+
 	mlx_hook(vars.win, 2, 0, keyboard, &vars);
 	mlx_loop_hook(vars.mlx, render_next_frame, &vars);
 	mlx_loop(vars.mlx);

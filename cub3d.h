@@ -8,6 +8,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <time.h>
+# include <math.h>
 
 
 typedef struct	s_img
@@ -30,6 +31,8 @@ typedef struct	s_mapinfo
 	int			row;
 	int			col;
 	int			**arr;
+	double		posX;
+	double		posY;
 }				t_mapinfo;
 
 typedef struct  s_vars {
@@ -45,5 +48,6 @@ typedef struct  s_vars {
 
 int		read_mapfile(t_mapinfo *map_info, const char *map_path);
 void	free_dptr(char **start, int len);
+int		raycast(t_vars *vars);
 
 #endif
