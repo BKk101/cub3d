@@ -4,15 +4,14 @@ int		raycast(t_vars *vars)
 {
 	int w = vars->map_info.win_wid;
 	int h = vars->map_info.win_hei;
+	double posX = vars->map_info.posX, posY = vars->map_info.posY;
+	double dirX = -1, dirY = 0; //initial direction vector
+	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
+	double time = 0; //time of current frame
+	double oldTime = 0; //time of previous frame
 
 	for(int x = 0; x < w; x++)
     {
-		double posX = vars->map_info.posX, posY = vars->map_info.posY;
-		double dirX = -1, dirY = 0; //initial direction vector
-		double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
-		double time = 0; //time of current frame
-		double oldTime = 0; //time of previous frame
-
 		//calculate ray position and direction
 		double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
 		double rayDirX = dirX + planeX * cameraX;
@@ -96,7 +95,7 @@ int		raycast(t_vars *vars)
       	  case 4:  color = 0xFFFFFF;  break; //white
       	  default: color = 0xFFFF00; break; //yellow
       	}
-		printf("%d %d\n", x, color);
+		//printf("%d %d\n", x, color);
       	//give x and y sides different brightness
       	//if (side == 1) {color = color / 2;}
 
@@ -105,5 +104,12 @@ int		raycast(t_vars *vars)
 			mlx_pixel_put(vars->mlx, vars->win, x, y, color);
 
 	}
+
+	oldTime = time;
+    time = clock();
+    double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
+    printf("%f %f %f\n", oldTime, time, frameTime);
+	double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
+    double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
 	return 0;
 }

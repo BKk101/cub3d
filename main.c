@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/08/06 19:16:08 by bykim            ###   ########.fr       */
+/*   Updated: 2020/08/09 17:13:36 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./cub3d.h"
-#define TILE_SIZE 20
+#define TILE_SIZE 15
 
 int		create_trgb(int t, int r, int g, int b)
 {
@@ -103,8 +103,8 @@ int render_next_frame(t_vars *vars)
 	int a = (int)(100 * vars->elp_time);
 	vars->color = create_trgb(100 * a % 100, rainbow[a%7][0], rainbow[a%7][1], rainbow[a%7][2]);
 	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img_pic.img, 125, 125);
-	//draw_rectangles(vars);
-	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img_map.img, 0, 0);
+	draw_rectangles(vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img_map.img, 0, 300);
 	raycast(vars);
 	return 0;
 }
@@ -117,7 +117,7 @@ int main(int argc, char **argv)
 
 	read_mapfile(&vars.map_info, "./maps/map.cub");
 	vars.mlx = mlx_init();
-	vars.win = mlx_new_window(vars.mlx, vars.map_info.win_wid, vars.map_info.win_hei, "new window");
+	vars.win = mlx_new_window(vars.mlx, vars.map_info.win_wid, vars.map_info.win_hei + 200, "new window");
 	vars.str_time = clock();
 	vars.img_pic.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &wid, &hei);
 	//map_validtest();
