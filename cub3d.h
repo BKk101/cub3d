@@ -35,6 +35,19 @@ typedef struct	s_mapinfo
 	double		posY;
 }				t_mapinfo;
 
+typedef struct	s_rayinfo
+{
+	double dirX;
+	double dirY;
+	double planeX;
+	double planeY;
+	double time; //time of current frame
+	double oldTime; //time of previous frame
+	double frameTime;
+	double moveSpeed;
+	double rotSpeed;
+}				t_rayinfo;
+
 typedef struct  s_vars {
     void        *mlx;
     void        *win;
@@ -44,6 +57,7 @@ typedef struct  s_vars {
 	t_img		img_pic;
 	t_img		img_map;
 	t_mapinfo	map_info;
+	t_rayinfo	ray_info;
 }               t_vars;
 
 int		read_mapfile(t_mapinfo *map_info, const char *map_path);

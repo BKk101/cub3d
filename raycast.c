@@ -5,17 +5,13 @@ int		raycast(t_vars *vars)
 	int w = vars->map_info.win_wid;
 	int h = vars->map_info.win_hei;
 	double posX = vars->map_info.posX, posY = vars->map_info.posY;
-	double dirX = -1, dirY = 0; //initial direction vector
-	double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
-	double time = 0; //time of current frame
-	double oldTime = 0; //time of previous frame
 
 	for(int x = 0; x < w; x++)
     {
 		//calculate ray position and direction
 		double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
-		double rayDirX = dirX + planeX * cameraX;
-		double rayDirY = dirY + planeY * cameraX;
+		double rayDirX = vars->ray_info.dirX + vars->ray_info.planeX * cameraX;
+		double rayDirY = vars->ray_info.dirY + vars->ray_info.planeY * cameraX;
 
 		int mapX = (int)posX;
 		int mapY = (int)posY;
@@ -105,11 +101,10 @@ int		raycast(t_vars *vars)
 
 	}
 
-	oldTime = time;
-    time = clock();
-    double frameTime = (time - oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-    printf("%f %f %f\n", oldTime, time, frameTime);
-	double moveSpeed = frameTime * 5.0; //the constant value is in squares/second
-    double rotSpeed = frameTime * 3.0; //the constant value is in radians/second
+	vars->ray_info.oldTime = vars->ray_info.time;
+    vars->ray_info.time = clock();
+    vars->ray_info.frameTime = (vars->ray_info.time - vars->ray_info.oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
+	vars->ray_info.moveSpeed = vars->ray_info.frameTime * 5.0; //the constant value is in squares/second
+    vars->ray_info.rotSpeed = vars->ray_info.frameTime * 3.0; //the constant value is in radians/second
 	return 0;
 }
