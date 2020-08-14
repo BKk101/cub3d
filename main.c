@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/08/13 18:23:36 by bk               ###   ########.fr       */
+/*   Updated: 2020/08/14 16:39:54 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,23 @@ int	keyboard(int keycode, t_vars *vars)
 	}
 	else if (keycode == 126)
     {
-      if(vars->map_info.arr[(int)(vars->map_info.posX + vars->ray_info.dirX * vars->ray_info.moveSpeed)][(int)(vars->map_info.posY)] == 0) vars->map_info.posX += vars->ray_info.dirX * vars->ray_info.moveSpeed;
-      if(vars->map_info.arr[(int)(vars->map_info.posX)][(int)(vars->map_info.posY + vars->ray_info.dirY * vars->ray_info.moveSpeed)] == 0) vars->map_info.posY += vars->ray_info.dirY * vars->ray_info.moveSpeed;
+      printf("up is pressed  %lf\n", vars->ray_info.frameTime);
+	  if(vars->map_info.arr[(int)(vars->map_info.posY)][(int)(vars->map_info.posX + vars->ray_info.dirX * vars->ray_info.moveSpeed)] == 0) vars->map_info.posX += vars->ray_info.dirX * vars->ray_info.moveSpeed;
+      if(vars->map_info.arr[(int)(vars->map_info.posY + vars->ray_info.dirY * vars->ray_info.moveSpeed)][(int)(vars->map_info.posX)] == 0) vars->map_info.posY += vars->ray_info.dirY * vars->ray_info.moveSpeed;
     }
     //move backwards if no wall behind you
     else if (keycode == 125)
     {
-      if(vars->map_info.arr[(int)(vars->map_info.posX - vars->ray_info.dirX * vars->ray_info.moveSpeed)][(int)(vars->map_info.posY)] == 0) vars->map_info.posX -= vars->ray_info.dirX * vars->ray_info.moveSpeed;
-      if(vars->map_info.arr[(int)(vars->map_info.posX)][(int)(vars->map_info.posY - vars->ray_info.dirY * vars->ray_info.moveSpeed)] == 0) vars->map_info.posY -= vars->ray_info.dirY * vars->ray_info.moveSpeed;
+      printf("down is pressed  %lf\n", vars->ray_info.frameTime);
+	  if(vars->map_info.arr[(int)(vars->map_info.posY)][(int)(vars->map_info.posX - vars->ray_info.dirX * vars->ray_info.moveSpeed)] == 0) vars->map_info.posX -= vars->ray_info.dirX * vars->ray_info.moveSpeed;
+      if(vars->map_info.arr[(int)(vars->map_info.posY - vars->ray_info.dirY * vars->ray_info.moveSpeed)][(int)(vars->map_info.posX)] == 0) vars->map_info.posY -= vars->ray_info.dirY * vars->ray_info.moveSpeed;
     }
     //rotate to the right
     else if (keycode == 124)
     {
       //both camera direction and camera plane must be rotated
-      double oldDirX = vars->ray_info.dirX;
+      printf("right is pressed  %lf\n", vars->ray_info.frameTime);
+	  double oldDirX = vars->ray_info.dirX;
       vars->ray_info.dirX = vars->ray_info.dirX * cos(-vars->ray_info.rotSpeed) - vars->ray_info.dirY * sin(-vars->ray_info.rotSpeed);
       vars->ray_info.dirY = oldDirX * sin(-vars->ray_info.rotSpeed) + vars->ray_info.dirY * cos(-vars->ray_info.rotSpeed);
       double oldPlaneX = vars->ray_info.planeX;
@@ -64,7 +67,8 @@ int	keyboard(int keycode, t_vars *vars)
     else if (keycode == 123)
     {
       //both camera direction and camera plane must be rotated
-      double oldDirX = vars->ray_info.dirX;
+      printf("left is pressed  %lf\n", vars->ray_info.frameTime);
+	  double oldDirX = vars->ray_info.dirX;
       vars->ray_info.dirX = vars->ray_info.dirX * cos(vars->ray_info.rotSpeed) - vars->ray_info.dirY * sin(vars->ray_info.rotSpeed);
       vars->ray_info.dirY = oldDirX * sin(vars->ray_info.rotSpeed) + vars->ray_info.dirY * cos(vars->ray_info.rotSpeed);
       double oldPlaneX = vars->ray_info.planeX;
@@ -137,8 +141,8 @@ int render_next_frame(t_vars *vars)
 	int a = (int)(100 * vars->elp_time);
 	vars->color = create_trgb(100 * a % 100, rainbow[a%7][0], rainbow[a%7][1], rainbow[a%7][2]);
 	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img_pic.img, 125, 125);
-	//draw_rectangles(vars);
-	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img_map.img, 0, 300);
+	draw_rectangles(vars);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img_map.img, 0, 380);
 	raycast(vars);
 	return 0;
 }
