@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/08/14 16:39:54 by bk               ###   ########.fr       */
+/*   Updated: 2020/08/30 15:29:30 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,10 @@ int render_next_frame(t_vars *vars)
 	vars->elp_time = (double)(clock() -  vars->str_time) / CLOCKS_PER_SEC;
 	int a = (int)(100 * vars->elp_time);
 	vars->color = create_trgb(100 * a % 100, rainbow[a%7][0], rainbow[a%7][1], rainbow[a%7][2]);
-	//mlx_put_image_to_window(vars->mlx, vars->win, vars->img_pic.img, 125, 125);
+	mlx_put_image_to_window(vars->mlx, vars->win, vars->img_pic.img, 125, 125);
 	draw_rectangles(vars);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->img_map.img, 0, 380);
-	raycast(vars);
+	//raycast(vars);
 	return 0;
 }
 
@@ -157,7 +157,7 @@ int main(int argc, char **argv)
 	vars.mlx = mlx_init();
 	vars.win = mlx_new_window(vars.mlx, vars.map_info.win_wid, vars.map_info.win_hei + 200, "new window");
 	vars.str_time = clock();
-	vars.img_pic.img = mlx_xpm_file_to_image(vars.mlx, "./images/pengsu.xpm", &wid, &hei);
+	vars.img_pic.img = mlx_xpm_file_to_image(vars.mlx, "./images/rilakkuma.xpm", &wid, &hei);
 	//map_validtest();
 	vars.img_map.img = mlx_new_image(vars.mlx, vars.map_info.col * TILE_SIZE, vars.map_info.row * TILE_SIZE);
 	vars.img_map.data = (int *)mlx_get_data_addr(vars.img_map.img, &vars.img_map.bpp,
