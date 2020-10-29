@@ -10,6 +10,17 @@
 # include <time.h>
 # include <math.h>
 
+typedef struct	s_pos_int
+{
+	int 		x;
+	int 		y;
+}				t_pos_int;
+
+typedef struct	s_pos_doub
+{
+	double 		x;
+	double 		y;
+}				t_pos_doub;
 
 typedef struct	s_img
 {
@@ -23,16 +34,12 @@ typedef struct	s_img
 
 typedef struct	s_mapinfo
 {
-	int			info_flag[8]; // r, no, so, we, ea, s, f, c
-	int			win_wid;
-	int			win_hei;
 	char		*path_list[5]; // NO,SO,WE,EA,S
 	int			fc_rgb[2][3]; // F, C
-	int			row;
-	int			col;
-	int			**arr;
-	double		posX;
-	double		posY;
+	int			**map;
+	t_pos_int	win;
+	t_pos_int	rc;
+	t_pos_doub	pos;
 }				t_mapinfo;
 
 typedef struct	s_rayinfo
@@ -46,6 +53,8 @@ typedef struct	s_rayinfo
 	double frameTime;
 	double moveSpeed;
 	double rotSpeed;
+	t_pos_doub	dir;
+	t_pos_doub	plane;
 }				t_rayinfo;
 
 typedef struct  s_vars {
@@ -60,7 +69,7 @@ typedef struct  s_vars {
 	t_rayinfo	ray_info;
 }               t_vars;
 
-int		read_mapfile(t_mapinfo *map_info, const char *map_path);
+int		read_mapfile(t_mapinfo *m_info, const char *map_path);
 void	free_dptr(char **start, int len);
 int		raycast(t_vars *vars);
 
