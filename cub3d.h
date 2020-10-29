@@ -44,10 +44,6 @@ typedef struct	s_mapinfo
 
 typedef struct	s_rayinfo
 {
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
 	double time; //time of current frame
 	double oldTime; //time of previous frame
 	double frameTime;

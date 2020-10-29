@@ -10,8 +10,8 @@ int		raycast(t_vars *vars)
     {
 		//calculate ray position and direction
 		double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
-		double rayDirX = vars->ray_info.dirX + vars->ray_info.planeX * cameraX;
-		double rayDirY = vars->ray_info.dirY + vars->ray_info.planeY * cameraX;
+		double rayDirX = vars->ray_info.dir.x + vars->ray_info.plane.x * cameraX;
+		double rayDirY = vars->ray_info.dir.y + vars->ray_info.plane.y * cameraX;
 
 		int mapX = (int)posX;
 		int mapY = (int)posY;

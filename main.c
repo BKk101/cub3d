@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/10/29 23:52:27 by bk               ###   ########.fr       */
+/*   Updated: 2020/10/30 01:04:45 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,39 +41,39 @@ int	keyboard(int keycode, t_vars *vars)
 	else if (keycode == 126)
     {
       printf("up is pressed  %lf\n", vars->ray_info.frameTime);
-	  if(vars->map_info.map[(int)(vars->map_info.pos.y)][(int)(vars->map_info.pos.x + vars->ray_info.dirX * vars->ray_info.moveSpeed)] == 0) vars->map_info.pos.x += vars->ray_info.dirX * vars->ray_info.moveSpeed;
-      if(vars->map_info.map[(int)(vars->map_info.pos.y + vars->ray_info.dirY * vars->ray_info.moveSpeed)][(int)(vars->map_info.pos.x)] == 0) vars->map_info.pos.y += vars->ray_info.dirY * vars->ray_info.moveSpeed;
+	  if(vars->map_info.map[(int)(vars->map_info.pos.y)][(int)(vars->map_info.pos.x + vars->ray_info.dir.x * vars->ray_info.moveSpeed)] == 0) vars->map_info.pos.x += vars->ray_info.dir.x * vars->ray_info.moveSpeed;
+      if(vars->map_info.map[(int)(vars->map_info.pos.y + vars->ray_info.dir.y * vars->ray_info.moveSpeed)][(int)(vars->map_info.pos.x)] == 0) vars->map_info.pos.y += vars->ray_info.dir.y * vars->ray_info.moveSpeed;
     }
     //move backwards if no wall behind you
     else if (keycode == 125)
     {
       printf("down is pressed  %lf\n", vars->ray_info.frameTime);
-	  if(vars->map_info.map[(int)(vars->map_info.pos.y)][(int)(vars->map_info.pos.x - vars->ray_info.dirX * vars->ray_info.moveSpeed)] == 0) vars->map_info.pos.x -= vars->ray_info.dirX * vars->ray_info.moveSpeed;
-      if(vars->map_info.map[(int)(vars->map_info.pos.y - vars->ray_info.dirY * vars->ray_info.moveSpeed)][(int)(vars->map_info.pos.x)] == 0) vars->map_info.pos.y -= vars->ray_info.dirY * vars->ray_info.moveSpeed;
+	  if(vars->map_info.map[(int)(vars->map_info.pos.y)][(int)(vars->map_info.pos.x - vars->ray_info.dir.x * vars->ray_info.moveSpeed)] == 0) vars->map_info.pos.x -= vars->ray_info.dir.x * vars->ray_info.moveSpeed;
+      if(vars->map_info.map[(int)(vars->map_info.pos.y - vars->ray_info.dir.y * vars->ray_info.moveSpeed)][(int)(vars->map_info.pos.x)] == 0) vars->map_info.pos.y -= vars->ray_info.dir.y * vars->ray_info.moveSpeed;
     }
     //rotate to the right
     else if (keycode == 124)
     {
       //both camera direction and camera plane must be rotated
       printf("right is pressed  %lf\n", vars->ray_info.frameTime);
-	  double oldDirX = vars->ray_info.dirX;
-      vars->ray_info.dirX = vars->ray_info.dirX * cos(-vars->ray_info.rotSpeed) - vars->ray_info.dirY * sin(-vars->ray_info.rotSpeed);
-      vars->ray_info.dirY = oldDirX * sin(-vars->ray_info.rotSpeed) + vars->ray_info.dirY * cos(-vars->ray_info.rotSpeed);
-      double oldPlaneX = vars->ray_info.planeX;
-      vars->ray_info.planeX = vars->ray_info.planeX * cos(-vars->ray_info.rotSpeed) - vars->ray_info.planeY * sin(-vars->ray_info.rotSpeed);
-      vars->ray_info.planeY = oldPlaneX * sin(-vars->ray_info.rotSpeed) + vars->ray_info.planeY * cos(-vars->ray_info.rotSpeed);
+	  double oldDirX = vars->ray_info.dir.x;
+      vars->ray_info.dir.x = vars->ray_info.dir.x * cos(-vars->ray_info.rotSpeed) - vars->ray_info.dir.y * sin(-vars->ray_info.rotSpeed);
+      vars->ray_info.dir.y = oldDirX * sin(-vars->ray_info.rotSpeed) + vars->ray_info.dir.y * cos(-vars->ray_info.rotSpeed);
+      double oldPlaneX = vars->ray_info.plane.x;
+      vars->ray_info.plane.x = vars->ray_info.plane.x * cos(-vars->ray_info.rotSpeed) - vars->ray_info.plane.y * sin(-vars->ray_info.rotSpeed);
+      vars->ray_info.plane.y = oldPlaneX * sin(-vars->ray_info.rotSpeed) + vars->ray_info.plane.y * cos(-vars->ray_info.rotSpeed);
     }
     //rotate to the left
     else if (keycode == 123)
     {
       //both camera direction and camera plane must be rotated
       printf("left is pressed  %lf\n", vars->ray_info.frameTime);
-	  double oldDirX = vars->ray_info.dirX;
-      vars->ray_info.dirX = vars->ray_info.dirX * cos(vars->ray_info.rotSpeed) - vars->ray_info.dirY * sin(vars->ray_info.rotSpeed);
-      vars->ray_info.dirY = oldDirX * sin(vars->ray_info.rotSpeed) + vars->ray_info.dirY * cos(vars->ray_info.rotSpeed);
-      double oldPlaneX = vars->ray_info.planeX;
-      vars->ray_info.planeX = vars->ray_info.planeX * cos(vars->ray_info.rotSpeed) - vars->ray_info.planeY * sin(vars->ray_info.rotSpeed);
-      vars->ray_info.planeY = oldPlaneX * sin(vars->ray_info.rotSpeed) + vars->ray_info.planeY * cos(vars->ray_info.rotSpeed);
+	  double oldDirX = vars->ray_info.dir.x;
+      vars->ray_info.dir.x = vars->ray_info.dir.x * cos(vars->ray_info.rotSpeed) - vars->ray_info.dir.y * sin(vars->ray_info.rotSpeed);
+      vars->ray_info.dir.y = oldDirX * sin(vars->ray_info.rotSpeed) + vars->ray_info.dir.y * cos(vars->ray_info.rotSpeed);
+      double oldPlaneX = vars->ray_info.plane.x;
+      vars->ray_info.plane.x = vars->ray_info.plane.x * cos(vars->ray_info.rotSpeed) - vars->ray_info.plane.y * sin(vars->ray_info.rotSpeed);
+      vars->ray_info.plane.y = oldPlaneX * sin(vars->ray_info.rotSpeed) + vars->ray_info.plane.y * cos(vars->ray_info.rotSpeed);
     }
 	return 0;
 }
@@ -163,10 +163,10 @@ int main(int argc, char **argv)
 	vars.img_map.data = (int *)mlx_get_data_addr(vars.img_map.img, &vars.img_map.bpp,
 &vars.img_map.size_l, &vars.img_map.endian);
 
-	vars.ray_info.dirX = -1;
-	vars.ray_info.dirY = 0; //initial direction vector
-	vars.ray_info.planeX = 0;
-	vars.ray_info.planeY = 0.66; //the 2d raycaster version of camera plane
+	vars.ray_info.dir.x = -1;
+	vars.ray_info.dir.y = 0; //initial direction vector
+	vars.ray_info.plane.x = 0;
+	vars.ray_info.plane.y = 0.66; //the 2d raycaster version of camera plane
 	vars.ray_info.time = 0; //time of current frame
 	vars.ray_info.oldTime = 0; //time of previous frame
 
