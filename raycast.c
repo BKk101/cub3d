@@ -2,16 +2,16 @@
 
 int		raycast(t_vars *vars)
 {
-	int w = vars->map_info.win.x;
-	int h = vars->map_info.win.y;
-	double posX = vars->map_info.pos.x, posY = vars->map_info.pos.y;
+	int w = vars->m_info->win.x;
+	int h = vars->m_info->win.y;
+	double posX = vars->m_info->pos.x, posY = vars->m_info->pos.y;
 
 	for(int x = 0; x < w; x++)
     {
 		//calculate ray position and direction
 		double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
-		double rayDirX = vars->ray_info.dir.x + vars->ray_info.plane.x * cameraX;
-		double rayDirY = vars->ray_info.dir.y + vars->ray_info.plane.y * cameraX;
+		double rayDirX = vars->r_info->dir.x + vars->r_info->plane.x * cameraX;
+		double rayDirY = vars->r_info->dir.y + vars->r_info->plane.y * cameraX;
 
 		int mapX = (int)posX;
 		int mapY = (int)posY;
@@ -66,7 +66,7 @@ int		raycast(t_vars *vars)
         	  side = 1;
         	}
         	//Check if ray has hit a wall
-        	if (vars->map_info.map[mapY][mapX] > 0) hit = 1;
+        	if (vars->m_info->map[mapY][mapX] > 0) hit = 1;
     	}
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
     	if (side == 0) perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
@@ -83,7 +83,7 @@ int		raycast(t_vars *vars)
 
 		//choose wall color
       	int color;
-      	switch(vars->map_info.map[mapY][mapX])
+      	switch(vars->m_info->map[mapY][mapX])
       	{
       	  case 1:  color = 0xFF0000;  break; //red
       	  case 2:  color = 0x00FF00;  break; //green
@@ -97,14 +97,14 @@ int		raycast(t_vars *vars)
 
       	//draw the pixels of the stripe as a vertical line
 		for (int y=drawStart;y<=drawEnd;y++)
-			mlx_pixel_put(vars->mlx, vars->win, x, y, color);
+			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, x, y, color);
 
 	}
 
-	vars->ray_info.oldTime = vars->ray_info.time;
-    vars->ray_info.time = clock();
-    vars->ray_info.frameTime = (vars->ray_info.time - vars->ray_info.oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-	vars->ray_info.moveSpeed = vars->ray_info.frameTime * 0.05; //the constant value is in squares/second
-    vars->ray_info.rotSpeed = vars->ray_info.frameTime * 0.03; //the constant value is in radians/second
+	vars->r_info->oldTime = vars->r_info->time;
+    vars->r_info->time = clock();
+    vars->r_info->frameTime = (vars->r_info->time - vars->r_info->oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
+	vars->r_info->moveSpeed = vars->r_info->frameTime * 0.05; //the constant value is in squares/second
+    vars->r_info->rotSpeed = vars->r_info->frameTime * 0.03; //the constant value is in radians/second
 	return 0;
 }

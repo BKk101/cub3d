@@ -9,31 +9,20 @@
 # include <stdlib.h>
 # include <time.h>
 # include <math.h>
+#define TILE_SIZE 15
 
-typedef struct	s_pos_int
-{
+
+typedef struct	s_pos_int {
 	int 		x;
 	int 		y;
 }				t_pos_int;
 
-typedef struct	s_pos_doub
-{
+typedef struct	s_pos_doub {
 	double 		x;
 	double 		y;
 }				t_pos_doub;
 
-typedef struct	s_img
-{
-	void	*img;
-	int		*data;
-
-	int		size_l;
-	int		bpp;
-	int		endian;
-}				t_img;
-
-typedef struct	s_mapinfo
-{
+typedef struct	s_mapinfo {
 	char		*path_list[5]; // NO,SO,WE,EA,S
 	int			fc_rgb[2][3]; // F, C
 	int			**map;
@@ -42,8 +31,7 @@ typedef struct	s_mapinfo
 	t_pos_doub	pos;
 }				t_mapinfo;
 
-typedef struct	s_rayinfo
-{
+typedef struct	s_rayinfo {
 	double time; //time of current frame
 	double oldTime; //time of previous frame
 	double frameTime;
@@ -53,20 +41,31 @@ typedef struct	s_rayinfo
 	t_pos_doub	plane;
 }				t_rayinfo;
 
-typedef struct  s_vars {
-    void        *mlx;
-    void        *win;
-	int			color;
-	clock_t		str_time;
-	double		elp_time;
-	t_img		img_pic;
-	t_img		img_map;
-	t_mapinfo	map_info;
-	t_rayinfo	ray_info;
-}               t_vars;
+typedef struct	s_mlx {
+	void	*mlx;
+	void	*win;
+	void	*img;
+	int		*data;
+	int		bpp;
+	int		sl;
+	int		endian;
+}				t_mlx;
+
+typedef struct	s_vars {
+	t_mlx	*mlx;
+	t_mapinfo	*m_info;
+	t_rayinfo	*r_info;	
+}			t_vars;
+
+extern	t_mlx		g_mlx;
+extern	t_mapinfo	g_mapinfo;
+extern	t_rayinfo	g_rayinfo;
+extern	t_vars		g_vars;
 
 int		read_mapfile(t_mapinfo *m_info, const char *map_path);
 void	free_dptr(char **start, int len);
 int		raycast(t_vars *vars);
+int	keyboard(int keycode, t_vars *vars);
+int mouse(int button, int x, int y, t_vars *vars);
 
 #endif
