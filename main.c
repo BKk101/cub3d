@@ -6,21 +6,24 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/10/30 16:39:38 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/02 01:59:26 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./cub3d.h"
+#define PLANE 0.66
 
 t_mlx		g_mlx;
 t_mapinfo	g_mapinfo;
 t_rayinfo	g_rayinfo;
 t_vars		g_vars;
+t_pos_doub	g_dir[4] = {{0,-1},{1,0},{-1,0},{0,1}};
+t_pos_doub	g_plane[4] = {{PLANE,0},{0,PLANE},{0,PLANE},{PLANE,0}};
+static char	g_news[4] = "NEWS";
 
 int render_next_frame(t_vars *vars)
 {
-	//draw_rectangles(mlx);
-	//mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img, 0, 380); //map
+	mlx_clear_window(vars->mlx->mlx, vars->mlx->win);
 	raycast(vars);
 	return 0;
 }
@@ -35,14 +38,11 @@ int main(int argc, char **argv)
 	read_mapfile(&g_mapinfo, "./maps/map.cub");
 	g_mlx.mlx = mlx_init();
 	g_mlx.win = mlx_new_window(g_mlx.mlx, g_mapinfo.win.x, g_mapinfo.win.y, "new window");
-	//g_mlx.str_time = clock();
-	g_mlx.img = mlx_new_image(g_mlx.mlx, g_mapinfo.rc.x * TILE_SIZE, g_mapinfo.rc.y * TILE_SIZE);
-	g_mlx.data = (int *)mlx_get_data_addr(g_mlx.img, &g_mlx.bpp,&g_mlx.sl, &g_mlx.endian);
-
-	g_rayinfo.dir.x = -1;
-	g_rayinfo.dir.y = 0; //initial direction vector
-	g_rayinfo.plane.x = 0;
-	g_rayinfo.plane.y = 0.66; //the 2d raycaster version of camera plane
+	
+	int news = -1;
+	while (g_news[++news] != g_mapinfo.news && news < 5);
+	g_rayinfo.dir = g_dir[news]; //initial direction vector
+	g_rayinfo.plane = g_plane[news]; // camera plane
 	g_rayinfo.time = 0; //time of current frame
 	g_rayinfo.oldTime = 0; //time of previous frame
 

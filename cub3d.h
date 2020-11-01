@@ -23,6 +23,7 @@ typedef struct	s_pos_doub {
 }				t_pos_doub;
 
 typedef struct	s_mapinfo {
+	char		news;
 	char		*path_list[5]; // NO,SO,WE,EA,S
 	int			fc_rgb[2][3]; // F, C
 	int			**map;
@@ -32,6 +33,7 @@ typedef struct	s_mapinfo {
 }				t_mapinfo;
 
 typedef struct	s_rayinfo {
+	char key;
 	double time; //time of current frame
 	double oldTime; //time of previous frame
 	double frameTime;
@@ -67,5 +69,7 @@ void	free_dptr(char **start, int len);
 int		raycast(t_vars *vars);
 int	keyboard(int keycode, t_vars *vars);
 int mouse(int button, int x, int y, t_vars *vars);
+void Rotate(t_pos_doub *s, char dir);
+void Move(t_pos_doub *pos, char dir);
 
 #endif

@@ -4,6 +4,16 @@ int		raycast(t_vars *vars)
 {
 	int w = vars->m_info->win.x;
 	int h = vars->m_info->win.y;
+
+	if (vars->r_info->key == 'U' || vars->r_info->key == 'D') 
+		Move(&vars->m_info->pos, vars->r_info->key);
+	else if (vars->r_info->key == 'R' || vars->r_info->key == 'L') 
+	{
+		Rotate(&vars->r_info->dir, vars->r_info->key);
+		Rotate(&vars->r_info->plane, vars->r_info->key);
+	}
+	vars->r_info->key = 0;
+
 	double posX = vars->m_info->pos.x, posY = vars->m_info->pos.y;
 
 	for(int x = 0; x < w; x++)
@@ -66,7 +76,7 @@ int		raycast(t_vars *vars)
         	  side = 1;
         	}
         	//Check if ray has hit a wall
-        	if (vars->m_info->map[mapY][mapX] > 0) hit = 1;
+        	if (vars->m_info->map[mapY][mapX] > 0) hit = 1; //1인 경우만 히트
     	}
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
     	if (side == 0) perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
@@ -91,9 +101,8 @@ int		raycast(t_vars *vars)
       	  case 4:  color = 0xFFFFFF;  break; //white
       	  default: color = 0xFFFF00; break; //yellow
       	}
-		//printf("%d %d\n", x, color);
       	//give x and y sides different brightness
-      	//if (side == 1) {color = color / 2;}
+      	if (side == 1) {color = color / 2;}
 
       	//draw the pixels of the stripe as a vertical line
 		for (int y=drawStart;y<=drawEnd;y++)
@@ -104,7 +113,7 @@ int		raycast(t_vars *vars)
 	vars->r_info->oldTime = vars->r_info->time;
     vars->r_info->time = clock();
     vars->r_info->frameTime = (vars->r_info->time - vars->r_info->oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-	vars->r_info->moveSpeed = vars->r_info->frameTime * 0.05; //the constant value is in squares/second
-    vars->r_info->rotSpeed = vars->r_info->frameTime * 0.03; //the constant value is in radians/second
+	vars->r_info->moveSpeed = vars->r_info->frameTime * 0.03; //the constant value is in squares/second
+    vars->r_info->rotSpeed = vars->r_info->frameTime * 0.01; //the constant value is in radians/second
 	return 0;
 }

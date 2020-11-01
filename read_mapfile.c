@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/10/30 01:07:16 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/02 02:04:47 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static void	fill_2darr(t_mapinfo *m_info, char *line)
 		{
 			m_info->pos.x = g_j;
 			m_info->pos.y = i;
+			m_info->news = line[g_j];
+			m_info->map[i][g_j] = 0;
 		}
 	}
 	if (len < m_info->rc.x)
