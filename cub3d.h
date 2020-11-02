@@ -34,8 +34,6 @@ typedef struct	s_mapinfo {
 
 typedef struct	s_rayinfo {
 	char key;
-	double time; //time of current frame
-	double oldTime; //time of previous frame
 	double frameTime;
 	double moveSpeed;
 	double rotSpeed;
@@ -71,5 +69,6 @@ int	keyboard(int keycode, t_vars *vars);
 int mouse(int button, int x, int y, t_vars *vars);
 void Rotate(t_pos_doub *s, char dir);
 void Move(t_pos_doub *pos, char dir);
+void Calc_step_sidedist(double ray, double pos, int *step, double *sideDist);
 
 #endif

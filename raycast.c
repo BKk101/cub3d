@@ -2,98 +2,96 @@
 
 int		raycast(t_vars *vars)
 {
-	int w = vars->m_info->win.x;
-	int h = vars->m_info->win.y;
+	t_pos_int i;
+	t_pos_int screen;
+	t_pos_int map;
+	t_pos_int step;
+	t_pos_doub ray;
+	t_pos_doub sideDist;
+	t_pos_doub deltDist;
+	int hit;
+	int side;
+	double time;
+	double cam;
+	double pWallDist;
+	
+	screen = vars->m_info->win;
+	time  = (double)clock();
+	
 
-	if (vars->r_info->key == 'U' || vars->r_info->key == 'D') 
-		Move(&vars->m_info->pos, vars->r_info->key);
-	else if (vars->r_info->key == 'R' || vars->r_info->key == 'L') 
-	{
-		Rotate(&vars->r_info->dir, vars->r_info->key);
-		Rotate(&vars->r_info->plane, vars->r_info->key);
-	}
-	vars->r_info->key = 0;
-
-	double posX = vars->m_info->pos.x, posY = vars->m_info->pos.y;
-
-	for(int x = 0; x < w; x++)
+	for(i.x = 0; i.x < screen.x; i.x++)
     {
-		//calculate ray position and direction
-		double cameraX = 2 * x / (double)w - 1; //x-coordinate in camera space
-		double rayDirX = vars->r_info->dir.x + vars->r_info->plane.x * cameraX;
-		double rayDirY = vars->r_info->dir.y + vars->r_info->plane.y * cameraX;
-
-		int mapX = (int)posX;
-		int mapY = (int)posY;
-		//length of ray from current position to next x or y-side
-		double sideDistX;
-		double sideDistY;
-		 //length of ray from one x or y-side to next x or y-side
-		double deltaDistX = fabs(1 / rayDirX);
-		double deltaDistY = fabs(1 / rayDirY);
-		double perpWallDist;
-		//what direction to step in x or y-direction (either +1 or -1)
-		int stepX;
-		int stepY;
-		int hit = 0; //was there a wall hit?
-		int side; //was a NS or a EW wall hit?
-
+		cam = 2 * i.x / (double)screen.x - 1; //x-coordinate in camera space
+		ray.x = vars->r_info->dir.x + vars->r_info->plane.x * cam;
+		ray.y = vars->r_info->dir.y + vars->r_info->plane.y * cam;
+		
+		map.x = (int)vars->m_info->pos.x;
+		map.y = (int)vars->m_info->pos.y;
+		
+		deltDist.x = fabs(1 / ray.x);
+		deltDist.y = fabs(1 / ray.y);
+	
+		hit = 0; //was there a wall hit?
+		
 		//calculate step and initial sideDist
-    	if (rayDirX < 0)
+		Calc_step_sidedist(ray.x, vars->m_info->pos.x, &step.x, &sideDist.x);
+		Calc_step_sidedist(ray.y, vars->m_info->pos.y, &step.y, &sideDist.y);
+    	
+		/*if (ray.x < 0)
     	{
-    	  stepX = -1;
-    	  sideDistX = (posX - mapX) * deltaDistX;
+    	  	step.x = -1;
+    	  	sideDist.x = (vars->m_info->pos.x - map.x) * deltDist.x;
     	}
     	else
     	{
-    	  stepX = 1;
-    	  sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+    	  	step.x = 1;
+    	  	sideDist.x = (map.x + 1 - vars->m_info->pos.x) * deltDist.x;
     	}
-    	if (rayDirY < 0)
-    	{
-    	  stepY = -1;
-    	  sideDistY = (posY - mapY) * deltaDistY;
+    	if (ray.y < 0)
+		{
+			step.y = -1;
+    		sideDist.y = (vars->m_info->pos.y - map.y) * deltDist.y;
     	}
-    	else
-    	{
-    	  stepY = 1;
-    	  sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+    	else 
+		{
+			step.y = 1;
+    	  	sideDist.y = (map.y + 1 - vars->m_info->pos.y) * deltDist.y;
     	}
+		*/
 		//perform DDA
       	while (hit == 0)
       	{
         	//jump to next map square, OR in x-direction, OR in y-direction
-        	if (sideDistX < sideDistY)
+        	if (sideDist.x < sideDist.y)
         	{
-        	  sideDistX += deltaDistX;
-        	  mapX += stepX;
+        	  sideDist.x += deltDist.x;
+        	  map.x += step.x;
         	  side = 0;
         	}
         	else
         	{
-        	  sideDistY += deltaDistY;
-        	  mapY += stepY;
-        	  side = 1;
+        	  sideDist.y += deltDist.y;
+        	  map.y += step.y;
+			  side = 1;
         	}
-        	//Check if ray has hit a wall
-        	if (vars->m_info->map[mapY][mapX] > 0) hit = 1; //1인 경우만 히트
+        	if (vars->m_info->map[map.y][map.x] > 0) hit = 1; //1인 경우만 히트
     	}
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-    	if (side == 0) perpWallDist = (mapX - posX + (1 - stepX) / 2) / rayDirX;
-    	else           perpWallDist = (mapY - posY + (1 - stepY) / 2) / rayDirY;
+    	if (side == 0) pWallDist = (map.x - vars->m_info->pos.x + (1 - step.x) / 2) / ray.x;
+		else           pWallDist = (map.y - vars->m_info->pos.y + (1 - step.y) / 2) / ray.y;
 
 		//Calculate height of line to draw on screen
-      	int lineHeight = perpWallDist == 0 ? (int)h : (int)(h / perpWallDist);
+      	int lineHeight = pWallDist == 0 ? (int)screen.y : (int)(screen.y / pWallDist);
 
       	//calculate lowest and highest pixel to fill in current stripe
-      	int drawStart = -lineHeight / 2 + h / 2;
+      	int drawStart = -lineHeight / 2 + screen.y / 2;
       	if(drawStart < 0)drawStart = 0;
-      	int drawEnd = lineHeight / 2 + h / 2;
-      	if(drawEnd >= h)drawEnd = h - 1;
+      	int drawEnd = lineHeight / 2 + screen.y / 2;
+      	if(drawEnd >= screen.y)drawEnd = screen.y - 1;
 
 		//choose wall color
       	int color;
-      	switch(vars->m_info->map[mapY][mapX])
+      	switch(vars->m_info->map[map.y][map.x])
       	{
       	  case 1:  color = 0xFF0000;  break; //red
       	  case 2:  color = 0x00FF00;  break; //green
@@ -105,15 +103,38 @@ int		raycast(t_vars *vars)
       	if (side == 1) {color = color / 2;}
 
       	//draw the pixels of the stripe as a vertical line
-		for (int y=drawStart;y<=drawEnd;y++)
-			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, x, y, color);
+		for (i.y=drawStart;i.y<=drawEnd;i.y++)
+			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, color);
 
 	}
+    vars->r_info->frameTime = ((double)clock()- time) / CLOCKS_PER_SEC; //frameTime is the time this frame has taken, in seconds
+	vars->r_info->moveSpeed = vars->r_info->frameTime * 30; //the constant value is in squares/second
+    vars->r_info->rotSpeed = vars->r_info->frameTime * 10; //the constant value is in radians/second
 
-	vars->r_info->oldTime = vars->r_info->time;
-    vars->r_info->time = clock();
-    vars->r_info->frameTime = (vars->r_info->time - vars->r_info->oldTime) / 1000.0; //frameTime is the time this frame has taken, in seconds
-	vars->r_info->moveSpeed = vars->r_info->frameTime * 0.03; //the constant value is in squares/second
-    vars->r_info->rotSpeed = vars->r_info->frameTime * 0.01; //the constant value is in radians/second
+	if (vars->r_info->key == 'U' || vars->r_info->key == 'D') 
+		Move(&vars->m_info->pos, vars->r_info->key);
+	else if (vars->r_info->key == 'R' || vars->r_info->key == 'L') 
+	{
+		Rotate(&vars->r_info->dir, vars->r_info->key);
+		Rotate(&vars->r_info->plane, vars->r_info->key);
+	}
+	vars->r_info->key = 0;
 	return 0;
+}
+
+void Calc_step_sidedist(double ray, double pos, int *step, double *sideDist)
+{
+	double deltDist;
+	
+	deltDist = fabs(1 / ray);
+	if (ray < 0)
+    {
+      	*step = -1;
+      	*sideDist = (pos - (int)pos) * deltDist;
+    }
+    else
+    {
+      	*step = 1;
+      	*sideDist = ((int)pos + 1 - pos) * deltDist;
+    }
 }

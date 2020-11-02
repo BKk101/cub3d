@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/02 10:28:48 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/02 20:44:55 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ int main(int argc, char **argv)
 	while (g_news[++news] != g_mapinfo.news && news < 5);
 	g_rayinfo.dir = g_dir[news]; //initial direction vector
 	g_rayinfo.plane = g_plane[news]; // camera plane
-	g_rayinfo.time = 0; //time of current frame
-	g_rayinfo.oldTime = 0; //time of previous frame
 
 	mlx_hook(g_mlx.win, 2, 0, keyboard, &g_vars); //keypressed
 	mlx_hook(g_mlx.win, 4, 0, mouse, &g_vars); //mousepressed
