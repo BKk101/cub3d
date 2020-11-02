@@ -69,6 +69,7 @@ int	keyboard(int keycode, t_vars *vars);
 int mouse(int button, int x, int y, t_vars *vars);
 void Rotate(t_pos_doub *s, char dir);
 void Move(t_pos_doub *pos, char dir);
-void Calc_step_sidedist(double ray, double pos, int *step, double *sideDist);
+double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist);
+int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step);
 
 #endif

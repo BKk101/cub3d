@@ -9,8 +9,10 @@ int		raycast(t_vars *vars)
 	t_pos_doub ray;
 	t_pos_doub sideDist;
 	t_pos_doub deltDist;
-	int hit;
 	int side;
+	int height;
+	int sp;
+	int ep;
 	double time;
 	double cam;
 	double pWallDist;
@@ -18,7 +20,6 @@ int		raycast(t_vars *vars)
 	screen = vars->m_info->win;
 	time  = (double)clock();
 	
-
 	for(i.x = 0; i.x < screen.x; i.x++)
     {
 		cam = 2 * i.x / (double)screen.x - 1; //x-coordinate in camera space
@@ -28,66 +29,25 @@ int		raycast(t_vars *vars)
 		map.x = (int)vars->m_info->pos.x;
 		map.y = (int)vars->m_info->pos.y;
 		
-		deltDist.x = fabs(1 / ray.x);
-		deltDist.y = fabs(1 / ray.y);
-	
-		hit = 0; //was there a wall hit?
-		
 		//calculate step and initial sideDist
-		Calc_step_sidedist(ray.x, vars->m_info->pos.x, &step.x, &sideDist.x);
-		Calc_step_sidedist(ray.y, vars->m_info->pos.y, &step.y, &sideDist.y);
+		deltDist.x = Calc_step_sidedist(ray.x, vars->m_info->pos.x, &step.x, &sideDist.x);
+		deltDist.y = Calc_step_sidedist(ray.y, vars->m_info->pos.y, &step.y, &sideDist.y);
     	
-		/*if (ray.x < 0)
-    	{
-    	  	step.x = -1;
-    	  	sideDist.x = (vars->m_info->pos.x - map.x) * deltDist.x;
-    	}
-    	else
-    	{
-    	  	step.x = 1;
-    	  	sideDist.x = (map.x + 1 - vars->m_info->pos.x) * deltDist.x;
-    	}
-    	if (ray.y < 0)
-		{
-			step.y = -1;
-    		sideDist.y = (vars->m_info->pos.y - map.y) * deltDist.y;
-    	}
-    	else 
-		{
-			step.y = 1;
-    	  	sideDist.y = (map.y + 1 - vars->m_info->pos.y) * deltDist.y;
-    	}
-		*/
 		//perform DDA
-      	while (hit == 0)
-      	{
-        	//jump to next map square, OR in x-direction, OR in y-direction
-        	if (sideDist.x < sideDist.y)
-        	{
-        	  sideDist.x += deltDist.x;
-        	  map.x += step.x;
-        	  side = 0;
-        	}
-        	else
-        	{
-        	  sideDist.y += deltDist.y;
-        	  map.y += step.y;
-			  side = 1;
-        	}
-        	if (vars->m_info->map[map.y][map.x] > 0) hit = 1; //1인 경우만 히트
-    	}
+		side = DDA(&sideDist, &map, deltDist, step);
+		
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-    	if (side == 0) pWallDist = (map.x - vars->m_info->pos.x + (1 - step.x) / 2) / ray.x;
-		else           pWallDist = (map.y - vars->m_info->pos.y + (1 - step.y) / 2) / ray.y;
+    	if (side == 0) 
+			pWallDist = (map.x - vars->m_info->pos.x + (1 - step.x) / 2) / ray.x;
+		else
+			pWallDist = (map.y - vars->m_info->pos.y + (1 - step.y) / 2) / ray.y;
 
 		//Calculate height of line to draw on screen
-      	int lineHeight = pWallDist == 0 ? (int)screen.y : (int)(screen.y / pWallDist);
+      	height = pWallDist == 0 ? (int)screen.y : (int)(screen.y / pWallDist);
 
       	//calculate lowest and highest pixel to fill in current stripe
-      	int drawStart = -lineHeight / 2 + screen.y / 2;
-      	if(drawStart < 0)drawStart = 0;
-      	int drawEnd = lineHeight / 2 + screen.y / 2;
-      	if(drawEnd >= screen.y)drawEnd = screen.y - 1;
+      	sp = (-height / 2 + screen.y / 2) < 0 ? 0 : (-height / 2 + screen.y / 2);
+      	ep = (height / 2 + screen.y / 2) >= screen.y ? screen.y - 1 : (height / 2 + screen.y / 2);
 
 		//choose wall color
       	int color;
@@ -103,7 +63,7 @@ int		raycast(t_vars *vars)
       	if (side == 1) {color = color / 2;}
 
       	//draw the pixels of the stripe as a vertical line
-		for (i.y=drawStart;i.y<=drawEnd;i.y++)
+		for (i.y=sp;i.y<=ep;i.y++)
 			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, color);
 
 	}
@@ -122,7 +82,7 @@ int		raycast(t_vars *vars)
 	return 0;
 }
 
-void Calc_step_sidedist(double ray, double pos, int *step, double *sideDist)
+double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist)
 {
 	double deltDist;
 	
@@ -137,4 +97,30 @@ void Calc_step_sidedist(double ray, double pos, int *step, double *sideDist)
       	*step = 1;
       	*sideDist = ((int)pos + 1 - pos) * deltDist;
     }
+	return deltDist;
+}
+
+int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step)
+{
+	int hit;
+	int side;
+
+	hit = 0;
+	while (hit == 0)
+    {
+    	if (sideDist->x < sideDist->y)
+    	{
+    	  sideDist->x += deltDist.x;
+    	  map->x += step.x;
+    	  side = 0;
+    	}
+    	else
+    	{
+    	  sideDist->y += deltDist.y;
+    	  map->y += step.y;
+		  side = 1;
+    	}
+    	if (g_mapinfo.map[map->y][map->x] > 0) hit = 1; //1인 경우만 히트
+    }
+	return side;
 }
