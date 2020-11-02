@@ -39,13 +39,11 @@ void Move(t_pos_doub *pos, char dir)
 void Move2(t_pos_doub *pos, char dir)
 {
 	t_pos_doub delt;
-	double size;
 	int d;
 
 	d = (dir == 'D' ? 1 : -1);
-	size = sqrt(pow(g_rayinfo.plane.x,2) + pow(g_rayinfo.plane.y,2));
-	delt.x = g_rayinfo.plane.x/size * g_rayinfo.moveSpeed;
-	delt.y = g_rayinfo.plane.y/size * g_rayinfo.moveSpeed;
+	delt.x = g_rayinfo.plane.x/PLANE * g_rayinfo.moveSpeed;
+	delt.y = g_rayinfo.plane.y/PLANE * g_rayinfo.moveSpeed;
 	if (g_mapinfo.map[(int)pos->y][(int)(pos->x + d * delt.x)] == 0)
 		pos->x += d * delt.x;
 	if (g_mapinfo.map[(int)(pos->y + d * delt.y)][(int)pos->x] == 0)

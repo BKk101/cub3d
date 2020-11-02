@@ -9,7 +9,7 @@
 # include <stdlib.h>
 # include <time.h>
 # include <math.h>
-#define TILE_SIZE 15
+#define PLANE 0.66
 
 
 typedef struct	s_pos_int {
@@ -71,6 +71,6 @@ void Rotate(t_pos_doub *s, char dir);
 void Move(t_pos_doub *pos, char dir);
 void Move2(t_pos_doub *pos, char dir);
 double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist);
-int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step);
+int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step, t_pos_doub ray);
 
 #endif

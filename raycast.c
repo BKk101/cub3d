@@ -1,5 +1,7 @@
 #include "./cub3d.h"
 
+static int g_color[4] = {0xff0000,0x00ff00,0x0000ff,0xffff00};
+
 int		Raycast(t_vars *vars)
 {
 	t_pos_int i;
@@ -34,10 +36,10 @@ int		Raycast(t_vars *vars)
 		deltDist.y = Calc_step_sidedist(ray.y, vars->m_info->pos.y, &step.y, &sideDist.y);
     	
 		//perform DDA
-		side = DDA(&sideDist, &map, deltDist, step);
+		side = DDA(&sideDist, &map, deltDist, step, ray);
 		
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
-    	if (side == 0) 
+    	if (side == 1 || side == 2) 
 			pWallDist = (map.x - vars->m_info->pos.x + (1 - step.x) / 2) / ray.x;
 		else
 			pWallDist = (map.y - vars->m_info->pos.y + (1 - step.y) / 2) / ray.y;
@@ -49,23 +51,12 @@ int		Raycast(t_vars *vars)
       	sp = (-height / 2 + screen.y / 2) < 0 ? 0 : (-height / 2 + screen.y / 2);
       	ep = (height / 2 + screen.y / 2) >= screen.y ? screen.y - 1 : (height / 2 + screen.y / 2);
 
-		//choose wall color
-      	int color;
-      	switch(vars->m_info->map[map.y][map.x])
-      	{
-      	  case 1:  color = 0xFF0000;  break; //red
-      	  case 2:  color = 0x00FF00;  break; //green
-      	  case 3:  color = 0x0000FF;   break; //blue
-      	  case 4:  color = 0xFFFFFF;  break; //white
-      	  default: color = 0xFFFF00; break; //yellow
-      	}
-      	//give x and y sides different brightness
-      	if (side == 1) {color = color / 2;}
-
-      	//draw the pixels of the stripe as a vertical line
+		for (i.y=screen.y-1;i.y>ep;i.y--)
+			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, 0xffffff); //floor
 		for (i.y=sp;i.y<=ep;i.y++)
-			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, color);
-
+			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, g_color[side]);
+		for (i.y=0;i.y<sp;i.y++)
+			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, 0x666666); //ceiling
 	}
     vars->r_info->frameTime = ((double)clock()- time) / CLOCKS_PER_SEC; //frameTime is the time this frame has taken, in seconds
 	vars->r_info->moveSpeed = vars->r_info->frameTime * 30; //the constant value is in squares/second
@@ -80,8 +71,7 @@ int		Raycast(t_vars *vars)
 		Rotate(&vars->r_info->dir, vars->r_info->key);
 		Rotate(&vars->r_info->plane, vars->r_info->key);
 	}
-	vars->r_info->key = 0;
-	return 0;
+	vars->r_info->key = 0;	return 0;
 }
 
 double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist)
@@ -102,7 +92,7 @@ double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist)
 	return deltDist;
 }
 
-int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step)
+int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step, t_pos_doub ray)
 {
 	int hit;
 	int side;
@@ -114,13 +104,13 @@ int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int ste
     	{
     	  sideDist->x += deltDist.x;
     	  map->x += step.x;
-    	  side = 0;
+    	  side = (ray.x > 0) ? 1 : 2;
     	}
     	else
     	{
     	  sideDist->y += deltDist.y;
     	  map->y += step.y;
-		  side = 1;
+		  side = (ray.y > 0) ? 3 : 0;
     	}
     	if (g_mapinfo.map[map->y][map->x] > 0) hit = 1; //1인 경우만 히트
     }
