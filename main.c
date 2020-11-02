@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/02 01:59:26 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/02 10:28:48 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_mapinfo	g_mapinfo;
 t_rayinfo	g_rayinfo;
 t_vars		g_vars;
 t_pos_doub	g_dir[4] = {{0,-1},{1,0},{-1,0},{0,1}};
-t_pos_doub	g_plane[4] = {{PLANE,0},{0,PLANE},{0,PLANE},{PLANE,0}};
+t_pos_doub	g_plane[4] = {{PLANE,0},{0,PLANE},{0,-PLANE},{-PLANE,0}};
 static char	g_news[4] = "NEWS";
 
 int render_next_frame(t_vars *vars)
