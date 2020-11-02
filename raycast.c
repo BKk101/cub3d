@@ -1,6 +1,6 @@
 #include "./cub3d.h"
 
-int		raycast(t_vars *vars)
+int		Raycast(t_vars *vars)
 {
 	t_pos_int i;
 	t_pos_int screen;
@@ -71,8 +71,10 @@ int		raycast(t_vars *vars)
 	vars->r_info->moveSpeed = vars->r_info->frameTime * 30; //the constant value is in squares/second
     vars->r_info->rotSpeed = vars->r_info->frameTime * 10; //the constant value is in radians/second
 
-	if (vars->r_info->key == 'U' || vars->r_info->key == 'D') 
+	if (vars->r_info->key == 'W' || vars->r_info->key == 'S') 
 		Move(&vars->m_info->pos, vars->r_info->key);
+	else if (vars->r_info->key == 'A' || vars->r_info->key == 'D')
+		Move2(&vars->m_info->pos, vars->r_info->key);
 	else if (vars->r_info->key == 'R' || vars->r_info->key == 'L') 
 	{
 		Rotate(&vars->r_info->dir, vars->r_info->key);

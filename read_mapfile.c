@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/02 02:04:47 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/02 22:34:38 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ static void	make_2darr(t_mapinfo *m_info, const char *path)
 	free(line);
 }
 
-int	read_mapfile(t_mapinfo *m_info, const char *map_path)
+int	Read_mapfile(t_mapinfo *m_info, const char *map_path)
 {
 	int		fd;
 	char	*line;

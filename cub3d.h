@@ -62,13 +62,14 @@ extern	t_mapinfo	g_mapinfo;
 extern	t_rayinfo	g_rayinfo;
 extern	t_vars		g_vars;
 
-int		read_mapfile(t_mapinfo *m_info, const char *map_path);
+int		Read_mapfile(t_mapinfo *m_info, const char *map_path);
 void	free_dptr(char **start, int len);
-int		raycast(t_vars *vars);
-int	keyboard(int keycode, t_vars *vars);
-int mouse(int button, int x, int y, t_vars *vars);
+int		Raycast(t_vars *vars);
+int	Keyboard(int keycode, t_vars *vars);
+int Mouse(int button, int x, int y, t_vars *vars);
 void Rotate(t_pos_doub *s, char dir);
 void Move(t_pos_doub *pos, char dir);
+void Move2(t_pos_doub *pos, char dir);
 double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist);
 int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step);
 

@@ -25,14 +25,29 @@ void Rotate(t_pos_doub *s, char dir)
 void Move(t_pos_doub *pos, char dir)
 {
 	int d;
-	double deltx;
-	double delty;
+	t_pos_doub delt;
 
-	d = (dir == 'U' ? 1 : -1);
-	deltx = g_rayinfo.dir.x * g_rayinfo.moveSpeed;
-	delty = g_rayinfo.dir.y * g_rayinfo.moveSpeed;
-	if (g_mapinfo.map[(int)pos->y][(int)(pos->x + d * deltx)] == 0)
-		pos->x += d* deltx;
-	if (g_mapinfo.map[(int)(pos->y + d * delty)][(int)pos->x] == 0)
-		pos->y += d* delty;	
+	d = (dir == 'W' ? 1 : -1);
+	delt.x = g_rayinfo.dir.x * g_rayinfo.moveSpeed;
+	delt.y = g_rayinfo.dir.y * g_rayinfo.moveSpeed;
+	if (g_mapinfo.map[(int)pos->y][(int)(pos->x + d * delt.x)] == 0)
+		pos->x += d * delt.x;
+	if (g_mapinfo.map[(int)(pos->y + d * delt.y)][(int)pos->x] == 0)
+		pos->y += d * delt.y;	
+}
+
+void Move2(t_pos_doub *pos, char dir)
+{
+	t_pos_doub delt;
+	double size;
+	int d;
+
+	d = (dir == 'D' ? 1 : -1);
+	size = sqrt(pow(g_rayinfo.plane.x,2) + pow(g_rayinfo.plane.y,2));
+	delt.x = g_rayinfo.plane.x/size * g_rayinfo.moveSpeed;
+	delt.y = g_rayinfo.plane.y/size * g_rayinfo.moveSpeed;
+	if (g_mapinfo.map[(int)pos->y][(int)(pos->x + d * delt.x)] == 0)
+		pos->x += d * delt.x;
+	if (g_mapinfo.map[(int)(pos->y + d * delt.y)][(int)pos->x] == 0)
+		pos->y += d * delt.y;	
 }
