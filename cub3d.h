@@ -61,6 +61,7 @@ extern	t_mlx		g_mlx;
 extern	t_mapinfo	g_mapinfo;
 extern	t_rayinfo	g_rayinfo;
 extern	t_vars		g_vars;
+extern const unsigned int wall1[];
 
 int		Read_mapfile(t_mapinfo *m_info, const char *map_path);
 void	free_dptr(char **start, int len);

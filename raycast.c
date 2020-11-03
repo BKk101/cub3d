@@ -1,5 +1,6 @@
 #include "./cub3d.h"
-
+#define texWidth 10
+#define texHeight 10
 static int g_color[4] = {0xff0000,0x00ff00,0x0000ff,0xffff00};
 
 int		Raycast(t_vars *vars)
@@ -15,6 +16,7 @@ int		Raycast(t_vars *vars)
 	int height;
 	int sp;
 	int ep;
+	int color;
 	double time;
 	double cam;
 	double pWallDist;
@@ -51,10 +53,35 @@ int		Raycast(t_vars *vars)
       	sp = (-height / 2 + screen.y / 2) < 0 ? 0 : (-height / 2 + screen.y / 2);
       	ep = (height / 2 + screen.y / 2) >= screen.y ? screen.y - 1 : (height / 2 + screen.y / 2);
 
+		double wallX; //where exactly the wall was hit
+      	if (side == 1 || side == 2) wallX = vars->m_info->pos.y + pWallDist * ray.y;
+      	else           wallX = vars->m_info->pos.x + pWallDist * ray.x;
+      	wallX -= floor((wallX));
+
+      	//x coordinate on the texture
+      	int texX = (int)(wallX * (double)texWidth);
+      	//if((side == 1 || side == 2) && ray.x < 0) texX = texWidth - texX - 1;
+      	//if((side == 0 && ray.y > 0) || (side == 3 && ray.y < 0)) texX = texWidth - texX - 1;
+		
+		// How much to increase the texture coordinate per screen pixel
+      	double step = 1.0 * texHeight / (ep-sp);
+      	// Starting texture coordinate
+      	double texPos = (sp - screen.y / 2 + height / 2) * step;
+      	
+		for(i.y = sp; i.y<=ep; i.y++)
+      	{
+      	  	// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+      	  	int texY = (int)texPos & (texHeight - 1);
+      	  	texPos += step;
+			color = wall1[texHeight * texY + texX];
+			//texWidth * (texHeight - texY)
+			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, color);
+      	}
+
 		for (i.y=screen.y-1;i.y>ep;i.y--)
 			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, 0xffffff); //floor
-		for (i.y=sp;i.y<=ep;i.y++)
-			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, g_color[side]);
+		//for (i.y=sp;i.y<=ep;i.y++)
+		//	mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, g_color[side]);
 		for (i.y=0;i.y<sp;i.y++)
 			mlx_pixel_put(vars->mlx->mlx, vars->mlx->win, i.x, i.y, 0x666666); //ceiling
 	}

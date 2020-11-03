@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/03 01:47:52 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/03 23:36:14 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ t_mlx		g_mlx;
 t_mapinfo	g_mapinfo;
 t_rayinfo	g_rayinfo;
 t_vars		g_vars;
-t_pos_doub	g_dir[4] = {{0,-1},{1,0},{-1,0},{0,1}};
-t_pos_doub	g_plane[4] = {{PLANE,0},{0,PLANE},{0,-PLANE},{-PLANE,0}};
+t_pos_doub	g_dir[4] = {{0, -1}, {1, 0}, {-1, 0}, {0, 1}};
+t_pos_doub	g_plane[4] = {{PLANE, 0}, {0, PLANE}, {0, -PLANE}, {-PLANE, 0}};
 static char	g_news[4] = "NEWS";
 
 int Render_next_frame(t_vars *vars)
@@ -37,6 +37,9 @@ int main(int argc, char **argv)
 	Read_mapfile(&g_mapinfo, "./maps/map.cub");
 	g_mlx.mlx = mlx_init();
 	g_mlx.win = mlx_new_window(g_mlx.mlx, g_mapinfo.win.x, g_mapinfo.win.y, "new window");
+	g_mlx.img = mlx_new_image(g_mlx.mlx,g_mapinfo.win.x,g_mapinfo.win.y);
+	g_mlx.data = (int *)mlx_get_data_addr(g_mlx.img,&g_mlx.bpp,&g_mlx.sl,&g_mlx.endian);
+	//g_mlx.data[i*width + j] = color;
 	
 	int news = -1;
 	while (g_news[++news] != g_mapinfo.news && news < 5);
