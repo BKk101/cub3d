@@ -52,10 +52,10 @@ typedef struct	s_mlx {
 }				t_mlx;
 
 typedef struct	s_vars {
-	t_mlx	*mlx;
+	t_mlx		*mlx;
 	t_mapinfo	*m_info;
 	t_rayinfo	*r_info;	
-}			t_vars;
+}				t_vars;
 
 extern	t_mlx		g_mlx;
 extern	t_mapinfo	g_mapinfo;

@@ -20,11 +20,45 @@ t_pos_doub	g_dir[4] = {{0, -1}, {1, 0}, {-1, 0}, {0, 1}};
 t_pos_doub	g_plane[4] = {{PLANE, 0}, {0, PLANE}, {0, -PLANE}, {-PLANE, 0}};
 static char	g_news[4] = "NEWS";
 
-int Render_next_frame(t_vars *vars)
+//int Render_next_frame(t_vars *vars)
+//{
+//	mlx_clear_window(vars->mlx->mlx, vars->mlx->win);
+//	Raycast(vars);
+//	return 0;
+//}
+
+
+void	redraw(t_mlx mlx)
 {
-	mlx_clear_window(vars->mlx->mlx, vars->mlx->win);
-	Raycast(vars);
-	return 0;
+	int i;
+	int j;
+	int tmp;
+
+	i = -1;
+	while (++i < g_mapinfo.win.y)
+	{
+		j = -1;
+		tmp = i * g_mapinfo.win.x; //mlx.sl / 4;
+		while (++j < g_mapinfo.win.x)
+			mlx.data[tmp + j] = g_cub.window.scene[i][j];
+	}
+	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
+}
+
+void		update_scene(void)
+{
+	draw_background(&g_cub.window, g_cub.floor, g_cub.ceil);
+	draw_wall(&g_cub);
+	draw_sprite(&g_cub);
+}
+
+int		Loop(t_vars *vars)
+{
+	//calc_movement(&g_cub.player, &g_cub.control);
+	//update_player(g_cub.map.data, &g_cub.player);
+	update_scene();
+	redraw(*(vars->mlx));
+	return (0);
 }
 
 int main(int argc, char **argv)
@@ -48,6 +82,6 @@ int main(int argc, char **argv)
 
 	mlx_hook(g_mlx.win, 2, 0, Keyboard, &g_vars); //keypressed
 	mlx_hook(g_mlx.win, 4, 0, Mouse, &g_vars); //mousepressed
-	mlx_loop_hook(g_mlx.mlx, Render_next_frame, &g_vars);
+	mlx_loop_hook(g_mlx.mlx, Loop, &g_vars);
 	mlx_loop(g_mlx.mlx);
 }

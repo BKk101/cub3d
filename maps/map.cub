@@ -1,10 +1,10 @@
 R 500 400
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./images/wood.xpm
+SO ./images/redbrick.xpm
+WE ./images/mossy.xpm
+EA ./images/purplestone.xpm
 
-S ./path_to_the_sprite_texture
+S ./images/barrel.xpm
 F 220,100,0
 C 225,30,0
 
