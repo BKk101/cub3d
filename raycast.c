@@ -21,7 +21,7 @@ void	dda(t_ray *ray, int **map, t_pos_doub side_dist)
 			ray->map.y += step.y;
 			ray->side = 1;
 		}
-		if (map[ray->map.x][ray->map.y] > 0)
+		if (map[ray->map.y][ray->map.x] > 0)
 			break ;
 	}
 }

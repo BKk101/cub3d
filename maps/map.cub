@@ -1,8 +1,8 @@
 R 500 400
-NO ./images/wood.xpm
-SO ./images/redbrick.xpm
-WE ./images/mossy.xpm
-EA ./images/purplestone.xpm
+NO ./images/mossy.xpm
+SO ./images/rilakkuma_resize.xpm
+WE ./images/west.xpm
+EA ./images/west.xpm
 
 S ./images/barrel.xpm
 F 220,100,0

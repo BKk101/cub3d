@@ -7,7 +7,7 @@ void	calc_draw_info(t_wallinfo *info, t_vars *vars, int x)
 	h = vars->window.hei;
 	info->ray = init_ray(vars->player, x, vars->window.wid);
 	info->perp_wall_dist = calc_perp_wall_dist(vars, &(info->ray));
-	info->line_h = (int)(h / info->perp_wall_dist);
+	info->line_h = info->perp_wall_dist == 0 ? h : (int)(h / info->perp_wall_dist);
 	info->draw_s = info->line_h > h ? 0 : (h - info->line_h) / 2;
 	info->draw_e = info->line_h >= h ? h - 1 : (info->line_h + h) / 2;
 	if (info->ray.side)

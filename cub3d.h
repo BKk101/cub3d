@@ -46,6 +46,7 @@ typedef struct	s_ray{
 
 typedef struct	s_player
 {
+	char 		move;
 	double		movespeed;
 	double		rotspeed;
 	t_pos_doub	pos;
