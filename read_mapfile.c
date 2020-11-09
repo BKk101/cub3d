@@ -6,13 +6,13 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/02 22:34:38 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/10 00:46:10 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./cub3d.h"
 
-static char *g_info[] = {"R", "NO", "SO", "WE", "EA", "S", "F", "C"};
+static char *g_info[8] = {"R", "NO", "SO", "WE", "EA", "S", "F", "C"};
 static char **g_dptr;
 static char	**g_dptr2;
 static int	g_flag[8]; // r, no, so, we, ea, s, f, c
@@ -42,6 +42,7 @@ static void	read_info(t_mapinfo *map_info, char *line)
 		free_dptr(g_dptr2, g_j - 1);
 		free(g_dptr2);	}
 	else
+		//parse_key_texture(map_info, g_idx, g_dptr[++g_i]);
 		map_info->path_list[g_idx - 1] = ft_strdup(g_dptr[++g_i]);
 	free_dptr(g_dptr, g_i);
 	free(g_dptr);

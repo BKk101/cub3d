@@ -1,5 +1,5 @@
 #include "./cub3d.h"
-
+/*
 int	Keyboard(int keycode, t_vars *vars)
 {
 	if (keycode == 53) //esc
@@ -45,3 +45,4 @@ int Mouse(int button, int x, int y, t_vars *vars)
 	printf("%d x:%d y:%d\n", button, x, y);
 	return 0;
 }
+*/

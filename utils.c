@@ -9,6 +9,7 @@ void	free_dptr(char **start, int len)
 		free(*(start + i));
 }
 
+/*
 void Rotate(t_pos_doub *s, char dir)
 {
 	int d;
@@ -49,3 +50,4 @@ void Move2(t_pos_doub *pos, char dir)
 	if (g_mapinfo.map[(int)(pos->y + d * delt.y)][(int)pos->x] == 0)
 		pos->y += d * delt.y;	
 }
+*/
