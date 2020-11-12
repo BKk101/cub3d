@@ -4,7 +4,6 @@ int	Keyboard(int keycode, t_vars *vars)
 {
 	if (keycode == 53) //esc
 	{
-		mlx_destroy_window(g_mlx.mlx, g_mlx.win);
 		exit(0);
 	}
 	else if (keycode == 13) //w

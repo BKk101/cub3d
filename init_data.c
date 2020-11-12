@@ -18,8 +18,8 @@ int	init_sprite(t_list **head, t_map map)
 			if (map.data[i][j] == 2)
 			{
 				p = malloc(sizeof(t_sprite));
-				p->pos.x = 0.5 + i;
-				p->pos.y = 0.5 + j;
+				p->pos.x = 0.5 + j;
+				p->pos.y = 0.5 + i;
 				p->tex_num = 4;
 				ft_lstadd_back(head, ft_lstnew((void*)p));
 			}
@@ -27,7 +27,22 @@ int	init_sprite(t_list **head, t_map map)
 	return (1);
 }
 
-void Init_data(void)
+int		init_texture(t_vars *vars, char **path)
+{
+	int ret;
+	int i;
+
+	i = -1;
+	while (++i<5)
+	{
+		ret = load_texture(&vars->texture[i], path[i]);
+	}
+	//if (!ret)
+		//print_error(cuberror(invlid_texture_file));
+	return (ret);
+}
+
+void init_data(void)
 {
 	int i;
 
@@ -48,8 +63,7 @@ void Init_data(void)
 	g_vars.map.size = g_mapinfo.rc;
 	g_vars.map.data = g_mapinfo.map;
 
-	parse_key_texture(&g_vars, g_mapinfo.path_list);
-
+	init_texture(&g_vars, g_mapinfo.path_list);
 	init_sprite(&g_vars.sprite, g_vars.map);
 
 	g_vars.zbuf = malloc(sizeof(double) * g_vars.window.wid);

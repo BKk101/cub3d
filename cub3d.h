@@ -9,6 +9,8 @@
 # include <stdlib.h>
 # include <time.h>
 # include <math.h>
+# include <errno.h>
+
 #define PLANE 0.66
 
 
@@ -149,7 +151,7 @@ void Move2(int **map, t_player *player);
 double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist);
 int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step, t_pos_doub ray);
 
-int		parse_key_texture(t_vars *vars, char **path);
+int		init_texture(t_vars *vars, char **path);
 t_ray	init_ray(t_player player, int x, int w);
 double	calc_perp_wall_dist(t_vars *vars, t_ray *ray);
 t_pos_doub	calc_side_dist(t_ray ray, t_pos_doub delta_dist, double pos_x, double pos_y);
@@ -158,8 +160,13 @@ t_pos_doub	calc_delta_dist(t_ray ray);
 void	draw_wall(t_vars *vars);
 void	draw_background(t_window *window, int *floor, int *ceil);
 void	draw_sprite(t_vars *vars);
-void Init_data(void);
-void update_player(int **map, t_player *player);
+void	init_data(void);
+void	update_player(int **map, t_player *player);
+void	update_scene(void);
+void	redraw(t_mlx mlx);
+int		Error(char *s);
+int	load_texture(t_texture *texture, char *file_path);
+
 int ft_max(int a, int b);
 int ft_min(int a, int b);
 

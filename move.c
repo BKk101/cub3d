@@ -40,25 +40,3 @@ void Move2(int **map, t_player *player)
 	if (map[(int)(player->pos.y + d * delt.y)][(int)player->pos.x] != 1)
 		player->pos.y += d * delt.y;	
 }
-
-void update_player(int **map, t_player *player)
-{
-	double time;
-	double frametime;
-
-	time = clock();
-	frametime = (time - player->time) / CLOCKS_PER_SEC;
-	player->time = time;
-	player->movespeed = frametime * 30;
-    player->rotspeed = frametime * 10; 
-	if (player->key == 'W' || player->key == 'S') 
-		Move(map, player);
-	else if (player->key == 'A' || player->key == 'D')
-		Move2(map, player);
-	else if (player->key == 'R' || player->key == 'L') 
-	{
-		Rotate(&player->dir, player);
-		Rotate(&player->plane, player);
-	}
-	player->key = 0;
-}

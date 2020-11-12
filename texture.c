@@ -14,17 +14,3 @@ int	load_texture(t_texture *texture, char *file_path)
 	return (texture->data != 0); //?
 }
 
-int		parse_key_texture(t_vars *vars, char **path)
-{
-	int ret;
-	int i;
-
-	i = -1;
-	while (++i<5)
-	{
-		ret = load_texture(&vars->texture[i], path[i]);
-	}
-	//if (!ret)
-		//print_error(cuberror(invlid_texture_file));
-	return (ret);
-}

@@ -1,5 +1,44 @@
 #include "./cub3d.h"
 
+int		compare(t_sprite *lhs, t_sprite *rhs)
+{
+	int lhs_dist;
+	int rhs_dist;
+
+	lhs_dist = pow(lhs->pos.x - g_vars.player.pos.x, 2)
+				+ pow(lhs->pos.y - g_vars.player.pos.y, 2);
+	rhs_dist = pow(rhs->pos.x - g_vars.player.pos.x, 2)
+				+ pow(rhs->pos.y - g_vars.player.pos.y, 2);
+	return (lhs_dist < rhs_dist);
+}
+
+void	ft_list_sort(t_list **begin_list, int (*cmp)())
+{
+	int		swapped;
+	t_list	*ptr;
+	void	*tmp;
+
+	if (!*begin_list)
+		return ;
+	swapped = 1;
+	while (swapped)
+	{
+		swapped = 0;
+		ptr = *begin_list;
+		while (ptr->next)
+		{
+			if (cmp(ptr->content, ptr->next->content) > 0)
+			{
+				swapped = 1;
+				tmp = ptr->content;
+				ptr->content = ptr->next->content;
+				ptr->next->content = tmp;
+			}
+			ptr = ptr->next;
+		}
+	}
+}
+
 void	calc_draw_sprite_info(t_sprinfo *info, t_sprite *sprite)
 {
 	info->w = g_vars.window.wid;
@@ -64,6 +103,7 @@ void	draw_sprite(t_vars *vars)
 {
 	t_list *head;
 
+	ft_list_sort(&vars->sprite, compare);
 	head = vars->sprite;
 	while (head) {
 		draw_ele(head->content);
