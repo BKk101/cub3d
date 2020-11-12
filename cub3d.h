@@ -27,6 +27,11 @@ typedef struct	s_texture {
 	t_pos_int	size;
 }				t_texture;
 
+typedef struct	s_sprite {
+	int			tex_num;
+	t_pos_doub	pos;
+}				t_sprite;
+
 typedef struct	s_map {
 	t_pos_int	size;
 	int			**data;
@@ -105,6 +110,29 @@ typedef struct	s_wallinfo{
 	t_ray	ray;
 }				t_wallinfo;
 
+typedef struct	s_sprinfo{
+	int				w;
+	int				h;
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
+	int				sprite_screen_x;
+	int				sprite_h;
+	int				draw_start_y;
+	int				draw_end_y;
+	int				sprite_w;
+	int				draw_start_x;
+	int				draw_end_x;
+	int				tex_width;
+	int				tex_height;
+	int				tex_x;
+	int				tex_y;
+	int				d;
+	unsigned int	color;
+}				t_sprinfo;
+
 extern	t_mlx		g_mlx;
 extern	t_mapinfo	g_mapinfo;
 extern	t_vars		g_vars;
@@ -129,7 +157,10 @@ t_pos_int		calc_step(t_ray ray);
 t_pos_doub	calc_delta_dist(t_ray ray);
 void	draw_wall(t_vars *vars);
 void	draw_background(t_window *window, int *floor, int *ceil);
+void	draw_sprite(t_vars *vars);
 void Init_data(void);
 void update_player(int **map, t_player *player);
+int ft_max(int a, int b);
+int ft_min(int a, int b);
 
 #endif

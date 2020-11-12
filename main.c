@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/12 22:21:41 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/13 00:56:07 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		update_scene(void)
 {
 	draw_background(&g_vars.window, g_vars.f_rgb, g_vars.c_rgb);
 	draw_wall(&g_vars);
-	//draw_sprite(&g_vars);
+	draw_sprite(&g_vars);
 }
 
 int		Loop(t_mlx *mlx)

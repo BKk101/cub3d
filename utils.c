@@ -9,6 +9,16 @@ void	free_dptr(char **start, int len)
 		free(*(start + i));
 }
 
+int ft_max(int a, int b)
+{
+	return (a > b ? a:b);
+}
+
+int ft_min(int a, int b)
+{
+	return (a < b ? a:b);
+}
+
 /*
 void Rotate(t_pos_doub *s, char dir)
 {

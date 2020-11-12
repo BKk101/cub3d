@@ -4,6 +4,29 @@ t_pos_doub	g_dir[4] = {{0, -1}, {0, 1}, {-1, 0}, {1, 0}};
 t_pos_doub	g_plane[4] = {{PLANE, 0}, {-PLANE, 0}, {0, -PLANE} ,{0, PLANE}};
 static char	g_news[4] = "NSWE";
 
+int	init_sprite(t_list **head, t_map map)
+{
+	int			i;
+	int			j;
+	t_sprite	*p;
+
+	i = -1;
+	while (++i < map.size.y)
+	{
+		j = -1;
+		while (++j < map.size.x)
+			if (map.data[i][j] == 2)
+			{
+				p = malloc(sizeof(t_sprite));
+				p->pos.x = 0.5 + i;
+				p->pos.y = 0.5 + j;
+				p->tex_num = 4;
+				ft_lstadd_back(head, ft_lstnew((void*)p));
+			}
+	}
+	return (1);
+}
+
 void Init_data(void)
 {
 	int i;
@@ -26,6 +49,8 @@ void Init_data(void)
 	g_vars.map.data = g_mapinfo.map;
 
 	parse_key_texture(&g_vars, g_mapinfo.path_list);
+
+	init_sprite(&g_vars.sprite, g_vars.map);
 
 	g_vars.zbuf = malloc(sizeof(double) * g_vars.window.wid);
 

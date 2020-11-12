@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstiter.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:59:47 by bykim             #+#    #+#             */
-/*   Updated: 2020/04/13 23:27:49 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/13 00:44:34 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	ft_lstiter(t_list *lst, void (*f)())
 {
 	if (lst == 0)
 		return ;
