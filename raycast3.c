@@ -100,7 +100,8 @@ int		Raycast(t_vars *vars)
 		Rotate(&vars->r_info->dir, vars->r_info->key);
 		Rotate(&vars->r_info->plane, vars->r_info->key);
 	}
-	vars->r_info->key = 0;	return 0;
+	vars->r_info->key = 0;	
+	return 0;
 }
 
 double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist)

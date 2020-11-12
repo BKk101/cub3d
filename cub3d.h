@@ -46,7 +46,8 @@ typedef struct	s_ray{
 
 typedef struct	s_player
 {
-	char 		move;
+	char 		key;
+	double		time;
 	double		movespeed;
 	double		rotspeed;
 	t_pos_doub	pos;
@@ -113,9 +114,10 @@ void	free_dptr(char **start, int len);
 int		Raycast(t_vars *vars);
 int	Keyboard(int keycode, t_vars *vars);
 int Mouse(int button, int x, int y, t_vars *vars);
-void Rotate(t_pos_doub *s, char dir);
-void Move(t_pos_doub *pos, char dir);
-void Move2(t_pos_doub *pos, char dir);
+int	Exit(int vars);
+void Rotate(t_pos_doub *vec, t_player *player);
+void Move(int **map, t_player *player);
+void Move2(int **map, t_player *player);
 double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist);
 int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step, t_pos_doub ray);
 
@@ -128,5 +130,6 @@ t_pos_doub	calc_delta_dist(t_ray ray);
 void	draw_wall(t_vars *vars);
 void	draw_background(t_window *window, int *floor, int *ceil);
 void Init_data(void);
+void update_player(int **map, t_player *player);
 
 #endif

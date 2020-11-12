@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/10 00:46:10 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/12 22:25:44 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	read_info(t_mapinfo *map_info, char *line)
 		free_dptr(g_dptr2, g_j - 1);
 		free(g_dptr2);	}
 	else
-		//parse_key_texture(map_info, g_idx, g_dptr[++g_i]);
 		map_info->path_list[g_idx - 1] = ft_strdup(g_dptr[++g_i]);
 	free_dptr(g_dptr, g_i);
 	free(g_dptr);
@@ -111,7 +110,6 @@ int	Read_mapfile(t_mapinfo *m_info, const char *map_path)
 	int		fd;
 	char	*line;
 
-	ft_memset(m_info, 0, sizeof(t_mapinfo)); //외부에서 초기화?
 	fd = open(map_path, O_RDONLY);
 	while (get_next_line(fd, &line) == 1)
 	{

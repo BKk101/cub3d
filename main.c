@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/10 03:34:26 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/12 22:21:41 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_mlx		g_mlx;
 t_mapinfo	g_mapinfo;
 t_vars		g_vars;
-
 
 void	redraw(t_mlx mlx)
 {
@@ -43,9 +42,7 @@ void		update_scene(void)
 
 int		Loop(t_mlx *mlx)
 {
-	//calc_movement(&g_cub.player, &g_cub.control);
-	//update_player(g_cub.map.data, &g_cub.player);
-	
+	update_player(g_vars.map.data, &g_vars.player);
 	update_scene();
 	redraw(*mlx);
 	return (0);
@@ -58,6 +55,7 @@ int main(int argc, char **argv)
 
 	mlx_hook(g_mlx.win, 2, 0, Keyboard, &g_vars); //keypressed
 	mlx_hook(g_mlx.win, 4, 0, Mouse, &g_vars); //mousepressed
+	mlx_hook(g_mlx.win, 17, 0, Exit, 0);
 	mlx_loop_hook(g_mlx.mlx, Loop, &g_mlx);
 	mlx_loop(g_mlx.mlx);
 }
