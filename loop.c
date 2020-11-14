@@ -8,8 +8,8 @@ void	update_player(int **map, t_player *player)
 	time = clock();
 	frametime = (time - player->time) / CLOCKS_PER_SEC;
 	player->time = time;
-	player->movespeed = frametime * 30;
-    player->rotspeed = frametime * 10; 
+	player->movespeed = frametime * 7;
+    player->rotspeed = frametime * 3; 
 	if (player->key == 'W' || player->key == 'S') 
 		Move(map, player);
 	else if (player->key == 'A' || player->key == 'D')
