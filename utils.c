@@ -21,7 +21,7 @@ int		ft_min(int a, int b)
 
 int		Error(char *s)
 {
-	ft_putstr_fd("Error: ", 2);
+	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(s, 2);
 	return (-1);
 }

@@ -28,15 +28,23 @@ void	init_sprite(void)
 
 int		init_texture(void)
 {
-	int ret;
-	int i;
+	int		i;
+	int		tmp;
+	void	*img;
 
 	i = -1;
 	while (++i < 5)
-		ret = load_texture(&g_vars.texture[i], g_mapinfo.path_list[i]);
-	if (!ret)
+	{
+		img = mlx_xpm_file_to_image(g_mlx.mlx, g_mapinfo.path_list[i],
+			&g_vars.texture[i].size.x, &g_vars.texture[i].size.y);
+		if (!img)
+			break ;
+		g_vars.texture[i].data = (int *)mlx_get_data_addr(img, &tmp,
+			&tmp, &tmp);
+	}
+	if (!img)
 		Error("invalid_texture_file");
-	return (ret);
+	return (img != 0);
 }
 
 void	init_mlx(void)

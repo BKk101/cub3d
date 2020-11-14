@@ -137,7 +137,6 @@ extern	t_vars		g_vars;
 int					Read_mapfile(t_mapinfo *m_info, char *map_path);
 
 int					init_data(void);
-int					load_texture(t_texture *texture, char *file_path);
 void				save_bmp(t_window win);
 void				update_player(int **map, t_player *player);
 void				update_scene(void);
