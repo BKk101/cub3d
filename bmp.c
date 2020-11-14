@@ -57,7 +57,7 @@ void	make_bmp(unsigned char *header, unsigned char *buf,
 	close(fd);
 }
 
-int		save_bmp(t_window win)
+void	save_bmp(t_window win)
 {
 	unsigned char	header[54];
 	unsigned char	*buf;
@@ -67,10 +67,8 @@ int		save_bmp(t_window win)
 	wid_bytes = ((win.wid * 24 + 31) / 32) * 4;
 	imgsize = wid_bytes * win.hei;
 	set_header(header, win, imgsize);
-	if (!(buf = malloc(imgsize)))
-		return (0);
+	buf = malloc(imgsize);
 	set_pixels(buf, win, wid_bytes);
 	make_bmp(header, buf, imgsize);
 	free(buf);
-	return (1);
 }

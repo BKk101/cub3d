@@ -11,8 +11,7 @@
 # include <math.h>
 # include <errno.h>
 
-#define PLANE 0.66
-
+# define PLANE 0.66
 
 typedef struct	s_pos_int {
 	int 		x;
@@ -80,9 +79,7 @@ typedef struct	s_vars {
 	t_player	player;
 	t_texture	texture[5];
 	t_list		*sprite;
-	t_map		map;
-	//t_control	control;
-	
+	t_map		map;	
 }				t_vars;
 
 typedef struct	s_mapinfo {
@@ -164,6 +161,6 @@ int	load_texture(t_texture *texture, char *file_path);
 
 int ft_max(int a, int b);
 int ft_min(int a, int b);
-int		save_bmp(t_window win);
+void	save_bmp(t_window win);
 
 #endif
