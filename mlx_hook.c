@@ -1,6 +1,6 @@
 #include "./cub3d.h"
 
-int	Keyboard(int keycode, t_vars *vars)
+int	Key_press(int keycode, t_vars *vars)
 {
 	if (keycode == 53) //esc
 	{
@@ -36,6 +36,12 @@ int	Keyboard(int keycode, t_vars *vars)
         printf("left is pressed  x=%.2lf y=%.2lf\n", vars->player.pos.x, vars->player.pos.y);
 		vars->player.key = 'L';
     }
+	return 0;
+}
+
+int Key_release(int keycode, t_vars *vars)
+{
+	vars->player.key = 0;
 	return 0;
 }
 

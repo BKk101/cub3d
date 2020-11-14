@@ -19,7 +19,6 @@ void	update_player(int **map, t_player *player)
 		Rotate(&player->dir, player);
 		Rotate(&player->plane, player);
 	}
-	player->key = 0;
 }
 
 void	update_scene(void)

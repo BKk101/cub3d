@@ -29,7 +29,9 @@ int		main(int argc, char **argv)
 	if (argc > 3 || argc == 1
 		|| (argc == 3 && ft_strncmp("--save", argv[2], 6) != 0))
 		return (Error("invalid argument"));
-	Read_mapfile(&g_mapinfo, argv[1]);
+	if (Read_mapfile(&g_mapinfo, argv[1]) == -1)
+		return (-1);
+	init_data();
 	if (argc == 3)
 	{
 		update_scene();
@@ -37,8 +39,8 @@ int		main(int argc, char **argv)
 	}
 	else
 	{
-		init_data();
-		mlx_hook(g_mlx.win, 2, 0, Keyboard, &g_vars);
+		mlx_hook(g_mlx.win, 2, 0, Key_press, &g_vars);
+		mlx_hook(g_mlx.win_ptr, 3, 0, Key_release, &g_vars);
 		mlx_hook(g_mlx.win, 4, 0, Mouse, &g_vars);
 		mlx_hook(g_mlx.win, 17, 0, Exit, 0);
 		mlx_loop_hook(g_mlx.mlx, Loop, &g_mlx);
