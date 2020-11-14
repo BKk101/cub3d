@@ -47,7 +47,7 @@ void	init_mlx(void)
 	g_mapinfo.win.y = ft_max(g_mapinfo.win.y, 300);
 	if ((double)g_mapinfo.win.x / g_mapinfo.win.y > 2.5)
 		g_mapinfo.win.x = g_mapinfo.win.y * 4 / 3;
-	if ((double)g_mapinfo.win.x / g_mapinfo.win.y < 1)
+	if ((double)g_mapinfo.win.x / g_mapinfo.win.y < 0.7)
 		g_mapinfo.win.x = g_mapinfo.win.y * 4 / 3;
 	g_mlx.mlx = mlx_init();
 	g_mlx.win = mlx_new_window(g_mlx.mlx, g_mapinfo.win.x,

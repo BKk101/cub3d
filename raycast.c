@@ -1,12 +1,10 @@
 #include "./cub3d.h"
 
-void	dda(t_ray *ray, int **map, t_pos_doub side_dist)
+void	dda(t_ray *ray, int **map, t_pos_doub side_dist, t_pos_int step)
 {
 	t_pos_doub	delta_dist;
-	t_pos_int		step;
 
 	delta_dist = calc_delta_dist(*ray);
-	step = calc_step(*ray);
 	while (1)
 	{
 		if (side_dist.x < side_dist.y)
@@ -26,21 +24,20 @@ void	dda(t_ray *ray, int **map, t_pos_doub side_dist)
 	}
 }
 
-double	calc_perp_wall_dist(t_vars *vars, t_ray *ray)
+double	calc_pwall_dist(t_vars *vars, t_ray *ray)
 {
-	t_pos_doub	delta_dist;
 	t_pos_doub	side_dist;
-	t_pos_int		step;
+	t_pos_int	step;
 
-	delta_dist = calc_delta_dist(*ray);
-	side_dist = calc_side_dist(*ray, delta_dist,
-								vars->player.pos.x, vars->player.pos.y);
+	side_dist = calc_side_dist(*ray, vars->player.pos);
 	step = calc_step(*ray);
-	dda(ray, vars->map.data, side_dist);
+	dda(ray, vars->map.data, side_dist, step);
 	if (ray->side == 0)
-		return ((ray->map.x - vars->player.pos.x + (1 - step.x) / 2) / ray->dir.x);
+		return ((ray->map.x - vars->player.pos.x + (1 - step.x) / 2)
+			/ ray->dir.x);
 	else
-		return ((ray->map.y - vars->player.pos.y + (1 - step.y) / 2) / ray->dir.y);
+		return ((ray->map.y - vars->player.pos.y + (1 - step.y) / 2)
+			/ ray->dir.y);
 }
 
 t_ray	init_ray(t_player player, int x, int w)

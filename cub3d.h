@@ -100,7 +100,7 @@ typedef struct	s_wallinfo{
 	int		tex_w;
 	int		tex_h;
 	int		tex_x;
-	double	perp_wall_dist;
+	double	pwall_dist;
 	double	wall_x;
 	double	step;
 	double	tex_pos;
@@ -145,8 +145,8 @@ void Move(int **map, t_player *player);
 void Move2(int **map, t_player *player);
 
 t_ray	init_ray(t_player player, int x, int w);
-double	calc_perp_wall_dist(t_vars *vars, t_ray *ray);
-t_pos_doub	calc_side_dist(t_ray ray, t_pos_doub delta_dist, double pos_x, double pos_y);
+double	calc_pwall_dist(t_vars *vars, t_ray *ray);
+t_pos_doub	calc_side_dist(t_ray ray, t_pos_doub pos);
 t_pos_int		calc_step(t_ray ray);
 t_pos_doub	calc_delta_dist(t_ray ray);
 void	draw_wall(t_vars *vars);
