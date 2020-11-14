@@ -18,4 +18,6 @@ https://lodev.org/cgtutor/raycasting.html
 
 https://github.com/365kim/raycasting_tutorial
 
+https://jae02.tistory.com/entry/BITMAP%EB%B9%84%ED%8A%B8%EB%A7%B5-%EB%8D%B0%EC%9D%B4%ED%84%B0-%ED%8C%8C%EC%9D%BC-%EA%B5%AC%EC%A1%B0
+
 # 평가기준
