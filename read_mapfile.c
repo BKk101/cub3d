@@ -105,13 +105,28 @@ static void	make_2darr(t_mapinfo *m_info, const char *path)
 	free(line);
 }
 
+int	check_name(char *map_path)
+{
+	int	len;
+	int	ret;
+
+	if ((len = (int)ft_strlen(map_path)) < 4)
+		return (0);
+	ret = ft_strncmp(map_path + len - 4, ".cub", 4);
+	return (ret == 0);
+}
+
 int	Read_mapfile(t_mapinfo *m_info, const char *map_path)
 {
 	int		fd;
+	int		ret;
 	char	*line;
 
-	fd = open(map_path, O_RDONLY);
-	while (get_next_line(fd, &line) == 1)
+	if (!check_name(map_path))
+		return (Error("invalid_file_name"));
+	if ((fd = open(map_path, O_RDONLY)) == -1)
+		return (Error(strerror(errno)));
+	while ((ret = get_next_line(fd, &line)) == 1)
 	{
 		if (*line && check_infoflag())
 			m_info->rc.x = ft_strlen(line)>m_info->rc.x ? ft_strlen(line):m_info->rc.x;
