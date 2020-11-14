@@ -169,5 +169,6 @@ int	load_texture(t_texture *texture, char *file_path);
 
 int ft_max(int a, int b);
 int ft_min(int a, int b);
+int		save_bmp(t_window win);
 
 #endif

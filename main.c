@@ -33,7 +33,7 @@ int		main(int argc, char **argv)
 	if (argc == 3)
 	{
 		update_scene();
-		//save_bmp();
+		save_bmp(g_vars.window);
 	}
 	else
 	{
