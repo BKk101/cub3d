@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/14 16:42:57 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/15 01:22:39 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	main(int argc, char **argv)
 		return (Error("invalid argument"));
 	if (Read_mapfile(&g_mapinfo, argv[1]) == -1)
 		return (-1);
-	init_data();
+	if (!init_data())
+		return (-1);
 	if (argc == 3)
 	{
 		update_scene();

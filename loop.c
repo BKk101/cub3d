@@ -9,12 +9,12 @@ void	update_player(int **map, t_player *player)
 	frametime = (time - player->time) / CLOCKS_PER_SEC;
 	player->time = time;
 	player->movespeed = frametime * 7;
-    player->rotspeed = frametime * 3; 
-	if (player->key == 'W' || player->key == 'S') 
+	player->rotspeed = frametime * 3;
+	if (player->key == 'W' || player->key == 'S')
 		Move(map, player);
 	else if (player->key == 'A' || player->key == 'D')
 		Move2(map, player);
-	else if (player->key == 'R' || player->key == 'L') 
+	else if (player->key == 'R' || player->key == 'L')
 	{
 		Rotate(&player->dir, player);
 		Rotate(&player->plane, player);
@@ -38,7 +38,7 @@ void	redraw(t_mlx mlx)
 	while (++i < g_vars.window.hei)
 	{
 		j = -1;
-		tmp = i * mlx.sl / 4; //mlx.sl/4 == Width
+		tmp = i * mlx.sl / 4;
 		while (++j < g_vars.window.wid)
 			mlx.data[tmp + j] = g_vars.window.scene[i][j];
 	}

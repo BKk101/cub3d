@@ -35,8 +35,8 @@ typedef struct	s_sprite {
 }				t_sprite;
 
 typedef struct	s_map {
-	t_pos_int	size;
 	int			**data;
+	t_pos_int	size;
 }				t_map;
 
 typedef struct	s_window {
@@ -60,8 +60,6 @@ typedef struct	s_player
 	t_pos_doub	pos;
 	t_pos_doub	dir;
 	t_pos_doub	plane;
-	//t_point_of_view	movement;
-	//t_point_of_view	rotation;
 }				t_player;
 
 typedef struct	s_mlx {
@@ -115,11 +113,6 @@ typedef struct	s_wallinfo{
 typedef struct	s_sprinfo{
 	int				w;
 	int				h;
-	double			sprite_x;
-	double			sprite_y;
-	double			inv_det;
-	double			transform_x;
-	double			transform_y;
 	int				sprite_screen_x;
 	int				sprite_h;
 	int				draw_start_y;
@@ -132,6 +125,11 @@ typedef struct	s_sprinfo{
 	int				tex_x;
 	int				tex_y;
 	int				d;
+	double			sprite_x;
+	double			sprite_y;
+	double			inv_det;
+	double			transform_x;
+	double			transform_y;
 	unsigned int	color;
 }				t_sprinfo;
 
@@ -148,10 +146,7 @@ int	Exit(int vars);
 void Rotate(t_pos_doub *vec, t_player *player);
 void Move(int **map, t_player *player);
 void Move2(int **map, t_player *player);
-//double Calc_step_sidedist(double ray, double pos, int *step, double *sideDist);
-//int DDA(t_pos_doub *sideDist, t_pos_int *map, t_pos_doub deltDist, t_pos_int step, t_pos_doub ray);
 
-int		init_texture(t_vars *vars, char **path);
 t_ray	init_ray(t_player player, int x, int w);
 double	calc_perp_wall_dist(t_vars *vars, t_ray *ray);
 t_pos_doub	calc_side_dist(t_ray ray, t_pos_doub delta_dist, double pos_x, double pos_y);
@@ -160,7 +155,7 @@ t_pos_doub	calc_delta_dist(t_ray ray);
 void	draw_wall(t_vars *vars);
 void	draw_background(t_window *window, int *floor, int *ceil);
 void	draw_sprite(t_vars *vars);
-void	init_data(void);
+int	init_data(void);
 void	update_player(int **map, t_player *player);
 void	update_scene(void);
 void	redraw(t_mlx mlx);

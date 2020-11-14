@@ -11,6 +11,6 @@ int	load_texture(t_texture *texture, char *file_path)
 	if (!img)
 		return (0);
 	texture->data = (int *)mlx_get_data_addr(img, &tmp, &tmp, &tmp); //tmp 미사용
-	return (texture->data != 0); //?
+	return (texture->data != 0);
 }
 
