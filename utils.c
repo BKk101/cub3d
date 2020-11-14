@@ -21,6 +21,34 @@ int		ft_min(int a, int b)
 
 int		Error(char *s)
 {
-	perror(s);
+	ft_putstr_fd("Error: ", 2);
+	ft_putendl_fd(s, 2);
 	return (-1);
+}
+
+void	sort_list(t_list *start, int (*cmp)())
+{
+	int		done;
+	void	*tmp;
+	t_list	*cur;
+
+	if (!start)
+		return ;
+	done = 1;
+	while (done)
+	{
+		done = 0;
+		cur = start;
+		while (cur->next)
+		{
+			if (cmp(cur->content, cur->next->content) > 0)
+			{
+				done = 1;
+				tmp = cur->content;
+				cur->content = cur->next->content;
+				cur->next->content = tmp;
+			}
+			cur = cur->next;
+		}
+	}
 }
