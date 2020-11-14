@@ -41,7 +41,7 @@ void	set_header(unsigned char *header, t_window win, int imgsize)
 	ft_memcpy(header + 28, &bitcount, 2);
 	ft_memcpy(header + 34, &imgsize, 4);
 }
-
+/*
 static int get_color(t_window *w, int x, int y)
 {
 	int	rgb;
@@ -53,7 +53,7 @@ static int get_color(t_window *w, int x, int y)
 	rgb = (color & 0xFF0000) | (color & 0x00FF00) | (color & 0x0000FF);
 	return (rgb);
 }
-
+*/
 void	set_pixels(unsigned char *buf, t_window win, unsigned int wid_bytes)
 {
 	int				i;
@@ -61,14 +61,14 @@ void	set_pixels(unsigned char *buf, t_window win, unsigned int wid_bytes)
 	int				tmp;
 
 	i = -1;
-	temp = win.hei;
+	tmp = win.hei;
 	while (++i < win.hei)
 	{
 		j = -1;
 		--tmp;
 		while (++j < win.wid)
 		{
-			buf[tmp * wid_bytes + j * 3] = (data[i][j] & 0x0000ff) | (data[i][j] & 0x00ff00) | (data[i][j] & 0xff0000);
+			buf[tmp * wid_bytes + j * 3] = (win.scene[i][j] & 0x0000ff) | (win.scene[i][j] & 0x00ff00) | (win.scene[i][j] & 0xff0000);
 			//buf[tmp * width_in_bytes + j * 3 + 0] = (data[i][j]) & 0xff;
 			//buf[tmp * width_in_bytes + j * 3 + 1] = (data[i][j] >> 8) & 0xff;
 			//buf[tmp * width_in_bytes + j * 3 + 2] = (data[i][j] >> 16) & 0xff;
