@@ -5,7 +5,8 @@ void	free_dptr(char **start, int len)
 	int i;
 
 	i = -1;
-	while (++i <= len)
+	if (len == 0) return ;
+	while (++i < len)
 		free(*(start + i));
 }
 

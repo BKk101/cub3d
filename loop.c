@@ -1,6 +1,6 @@
 #include "./cub3d.h"
 
-void	update_player(int **map, t_player *player)
+void	update_player(char **map, t_player *player)
 {
 	double time;
 	double frametime;

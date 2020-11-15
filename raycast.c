@@ -1,6 +1,6 @@
 #include "./cub3d.h"
 
-void	dda(t_ray *ray, int **map, t_pos_doub side_dist, t_pos_int step)
+void	dda(t_ray *ray, char **map, t_pos_doub side_dist, t_pos_int step)
 {
 	t_pos_doub	delta_dist;
 
@@ -19,7 +19,7 @@ void	dda(t_ray *ray, int **map, t_pos_doub side_dist, t_pos_int step)
 			ray->map.y += step.y;
 			ray->side = 1;
 		}
-		if (map[ray->map.y][ray->map.x] == 1)
+		if (map[ray->map.y][ray->map.x] == '1')
 			break ;
 	}
 }

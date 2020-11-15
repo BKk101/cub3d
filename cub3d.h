@@ -34,7 +34,7 @@ typedef struct		s_sprite {
 }					t_sprite;
 
 typedef struct		s_map {
-	int				**data;
+	char			**data;
 	t_pos_int		size;
 }					t_map;
 
@@ -84,9 +84,11 @@ typedef struct		s_vars {
 
 typedef struct		s_mapinfo {
 	char			news;
+	char			**map;
+	char			*elem[10];
 	char			*path_list[5];
+	int				elem_num;
 	int				fc_rgb[2][3];
-	int				**map;
 	t_pos_int		win;
 	t_pos_int		rc;
 	t_pos_doub		pos;
@@ -138,7 +140,7 @@ int					Read_mapfile(t_mapinfo *m_info, char *map_path);
 
 int					init_data(void);
 void				save_bmp(t_window win);
-void				update_player(int **map, t_player *player);
+void				update_player(char **map, t_player *player);
 void				update_scene(void);
 void				redraw(t_mlx mlx);
 
@@ -157,13 +159,20 @@ void				draw_wall(t_vars *vars);
 void				draw_background(t_window *window, int *floor, int *ceil);
 void				draw_sprite(t_vars *vars);
 void				Rotate(t_pos_doub *vec, t_player *player);
-void				Move(int **map, t_player *player);
-void				Move2(int **map, t_player *player);
+void				Move(char **map, t_player *player);
+void				Move2(char **map, t_player *player);
+
+int					valid_map(t_mapinfo *m_info);
+int					valid_elem(t_mapinfo *m_info);
 
 int					Error(char *s);
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);
+int					ft_dptrlen(char **dptr);
+int					count_chars(const char *s, int c);
+int					is_all_digit(const char *s);
 void				free_dptr(char **start, int len);
 void				sort_list(t_list *start, int (*cmp)());
+
 
 #endif
