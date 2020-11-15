@@ -22,7 +22,7 @@ int	Key_press(int keycode, t_vars *vars)
 int	Key_release(int keycode, t_vars *vars)
 {
 	vars->player.key = 0;
-	return (0);
+	return (keycode);
 }
 
 int	Mouse(int button, int x, int y, t_vars *vars)
@@ -34,5 +34,5 @@ int	Mouse(int button, int x, int y, t_vars *vars)
 int	Exit(int vars)
 {
 	exit(0);
-	return (0);
+	return (vars);
 }

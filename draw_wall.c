@@ -12,13 +12,13 @@ void	calc_wall_info(t_wallinfo *info, t_vars *vars, int x)
 	info->draw_e = info->line_h >= h ? h - 1 : (info->line_h + h) / 2;
 	if (info->ray.side)
 	{
-		info->tex_n = info->ray.dir.y > 0 ? 0 : 1;
+		info->tex_n = info->ray.dir.y > 0 ? 1 : 0;
 		info->wall_x = vars->player.pos.x + info->pwall_dist
 		* info->ray.dir.x;
 	}
 	else
 	{
-		info->tex_n = info->ray.dir.x > 0 ? 2 : 3;
+		info->tex_n = info->ray.dir.x > 0 ? 3 : 2;
 		info->wall_x = vars->player.pos.y + info->pwall_dist
 		* info->ray.dir.y;
 	}

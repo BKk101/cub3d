@@ -1,8 +1,8 @@
-R 400 600
-NO ./images/mossy.xpm
-SO ./images/eagle.xpm
+R 800 500
 WE ./images/redbrick.xpm
 EA ./images/wood.xpm
+NO ./images/colorstone.xpm
+SO ./images/eagle.xpm
 
 S ./images/barrel.xpm
 F 220,100,0
@@ -11,7 +11,7 @@ C 225,30,0
 
         1111111111111111111111111
         1000000001100000000000001
-        101100000111002200000W001
+        10110000011102200000W0001
         1001000000000002000000001
 111111111011000001110200020000001
 100000000011000001110111111111111

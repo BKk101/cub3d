@@ -1,11 +1,11 @@
 #include "./cub3d.h"
 
-int ft_dptrlen(char **dptr)
+int	ft_dptrlen(char **dptr)
 {
 	int len;
 
 	len = 0;
-	while(dptr[len])
+	while (dptr[len])
 		len++;
 	return (len);
 }

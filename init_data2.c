@@ -23,7 +23,7 @@ void	init_mapdata(t_mapinfo *m_info)
 	}
 }
 
-char		**init_map(char **strs, t_pos_int size)
+char	**init_map(char **strs, t_pos_int size)
 {
 	char	**map;
 	int		i;

@@ -85,7 +85,7 @@ typedef struct		s_vars {
 typedef struct		s_mapinfo {
 	char			news;
 	char			**map;
-	char			*elem[10];
+	char			*elem[100];
 	char			*path_list[5];
 	int				elem_num;
 	int				fc_rgb[2][3];
@@ -175,6 +175,5 @@ int					count_chars(const char *s, int c);
 int					is_all_digit(const char *s);
 void				free_dptr(char **start, int len);
 void				sort_list(t_list *start, int (*cmp)());
-
 
 #endif
