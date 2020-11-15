@@ -46,7 +46,7 @@ void	draw_node(t_sprite *sprite)
 {
 	t_sprinfo	info;
 	int			line;
-	int			tmp;
+	int			tmp; 
 
 	calc_sprite_info(&info, sprite);
 	line = info.draw_start_x - 1;

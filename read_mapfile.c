@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/15 02:36:10 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/15 14:37:43 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ int	Read_mapfile(t_mapinfo *m_info, char *map_path)
 		if ((ret = get_next_line(fd, &line)) == -1)
 			return (Error("file read error"));
 		if (*line && check_infoflag())
-			m_info->rc.x = ft_strlen(line)>m_info->rc.x ? ft_strlen(line):m_info->rc.x;
+			m_info->rc.x = ft_strlen(line) > m_info->rc.x ? ft_strlen(line) : m_info->rc.x;
 		if (*line && check_infoflag())
 			m_info->rc.y++;
 		else if (*line)

@@ -64,7 +64,7 @@ void	save_bmp(t_window win)
 	unsigned int	wid_bytes;
 	unsigned int	imgsize;
 
-	wid_bytes = ((win.wid * 24 + 31) / 32) * 4;
+	wid_bytes = win.wid * 3;
 	imgsize = wid_bytes * win.hei;
 	set_header(header, win, imgsize);
 	buf = malloc(imgsize);
