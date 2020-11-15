@@ -30,8 +30,8 @@ int	get_fc(t_mapinfo *m_info, char **str, int idx)
 			m_info->fc_rgb[idx - 6][i] = ft_atoi(substr[i]);
 		}
 		ret = (i == 3);
-		free_dptr(substr, cnt);
 	}
+	free_dptr(substr, cnt);
 	return (ret);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bk <bk@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 00:48:34 by bk               ###   ########.fr       */
+/*   Updated: 2020/11/16 02:41:36 by bk               ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	read_info(t_mapinfo *m_info, char *line)
 		while (++i < m_info->rc.y)
 			temp[i] = m_info->map[i];
 		temp[i] = ft_strjoin(line, "");
-		free(m_info->map);
+		free(m_info->map); //제일처음 널포인터 프리?
 		m_info->rc.y++;
 		m_info->map = temp;
 		m_info->rc.x = ft_strlen(line) > m_info->rc.x ?

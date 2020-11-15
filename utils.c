@@ -9,6 +9,7 @@ void	free_dptr(char **start, int len)
 		return ;
 	while (++i < len)
 		free(*(start + i));
+	free(start);
 }
 
 int		ft_max(int a, int b)

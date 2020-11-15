@@ -33,7 +33,7 @@ void	calc_tex_info(t_wallinfo *wallinfo, t_vars *vars)
 	wallinfo->tex_x = (int)(wallinfo->wall_x * (double)wallinfo->tex_w);
 	if ((wallinfo->ray.side == 0 && wallinfo->ray.dir.x > 0) ||
 			(wallinfo->ray.side == 1 && wallinfo->ray.dir.y < 0))
-		wallinfo->tex_x = wallinfo->tex_w - wallinfo->tex_x - 1;
+			wallinfo->tex_x = wallinfo->tex_w - wallinfo->tex_x - 1;
 	wallinfo->step = 1.0 * wallinfo->tex_h / wallinfo->line_h;
 	wallinfo->tex_pos = (wallinfo->draw_s - vars->window.hei / 2
 		+ wallinfo->line_h / 2) * wallinfo->step;
