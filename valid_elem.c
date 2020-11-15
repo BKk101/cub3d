@@ -41,13 +41,16 @@ int	get_texture(t_mapinfo *m_info, char **str, int idx)
 	return (1);
 }
 
-int	check_info(t_mapinfo *m_info, char **str, int idx)
+int	check_info(t_mapinfo *m_info, char **str, int idx, int *flag)
 {
 	int len;
 	int ret;
 
 	ret = 1;
 	len = ft_dptrlen(str);
+	if (flag[idx])
+		return (0);
+	flag[idx] = 1;
 	if (idx == 0)
 	{
 		if (len != 3 || !get_resolution(m_info, str))
@@ -66,7 +69,7 @@ int	check_info(t_mapinfo *m_info, char **str, int idx)
 	return (ret);
 }
 
-int	valid_elem(t_mapinfo *m_info)
+int	valid_elem(t_mapinfo *m_info, int *flag)
 {
 	char	**substr;
 	int		ret;
@@ -81,9 +84,10 @@ int	valid_elem(t_mapinfo *m_info)
 	{
 		substr = ft_split(m_info->elem[i], ' ');
 		j = 0;
-		while (j < 8 && ft_strncmp(g_elem[j], substr[0], ft_strlen(substr[0])))
+		while (j < 8 && ft_strncmp(g_elem[j], substr[0],
+			ft_strlen(substr[0]) + 1))
 			j++;
-		if (j >= 8 || !check_info(m_info, substr, j))
+		if (j >= 8 || !check_info(m_info, substr, j, flag))
 			ret = 0;
 		free_dptr(substr, ft_dptrlen(substr));
 	}

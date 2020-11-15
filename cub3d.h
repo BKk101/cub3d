@@ -139,6 +139,8 @@ extern	t_vars		g_vars;
 int					Read_mapfile(t_mapinfo *m_info, char *map_path);
 
 int					init_data(void);
+char				**init_map(char **strs, t_pos_int size);
+void				init_mapdata(t_mapinfo *m_info);
 void				save_bmp(t_window win);
 void				update_player(char **map, t_player *player);
 void				update_scene(void);
@@ -162,8 +164,8 @@ void				Rotate(t_pos_doub *vec, t_player *player);
 void				Move(char **map, t_player *player);
 void				Move2(char **map, t_player *player);
 
-int					valid_map(t_mapinfo *m_info);
-int					valid_elem(t_mapinfo *m_info);
+int					valid_map(t_mapinfo *m_info, int *flag);
+int					valid_elem(t_mapinfo *m_info, int *flag);
 
 int					Error(char *s);
 int					ft_max(int a, int b);

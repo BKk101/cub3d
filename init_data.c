@@ -15,7 +15,7 @@ void	init_sprite(void)
 	{
 		j = -1;
 		while (++j < g_vars.map.size.x)
-			if (g_vars.map.data[i][j] == 2)
+			if (g_vars.map.data[i][j] == '2')
 			{
 				p = malloc(sizeof(t_sprite));
 				p->pos.x = 0.5 + j;
@@ -84,6 +84,7 @@ int		init_data(void)
 
 	init_mlx();
 	init_window();
+	init_mapdata(&g_mapinfo);
 	g_vars.map.size = g_mapinfo.rc;
 	g_vars.map.data = g_mapinfo.map;
 	if (init_texture() == 0)

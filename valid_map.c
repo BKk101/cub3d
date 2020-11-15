@@ -1,96 +1,90 @@
 #include "./cub3d.h"
 
-int			g_i;
-int			g_j;
-int			g_dx[4] = {0, 0, -1, 1};
-int			g_dy[4] = {-1, 1, 0, 0};
-int			g_rp;
-int			g_wp;
-char		**g_dptr;
-t_pos_doub	g_nq;
-t_pos_doub	g_q;
+static int	g_dx[] = {0, 0, -1, 1};
+static int	g_dy[] = {-1, 1, 0, 0};
 
-int	make_2darr(t_mapinfo *m_info)
+int	visit(char **map, int i, int j, t_pos_int size)
 {
-	g_i = -1;
-	g_dptr = malloc(sizeof(char *) * m_info->rc.y);
-	while (++g_i < m_info->rc.y)
-	{
-		g_dptr[g_i] = malloc(sizeof(char) * m_info->rc.x);
-		g_j = -1;
-		while (++g_j < ft_strlen(m_info->map[g_i]))
-			g_dptr[g_i][g_j] = m_info->map[g_i][g_j];
-		while (g_j < m_info->rc.x)
-			g_dptr[g_i][g_j++] = ' ';
-	}
-	free_dptr(m_info->map, m_info->rc.y);
-	m_info->map = g_dptr;
-	return (0);
-}
+	int			d;
+	t_pos_int	next;
 
-int	check_value(t_mapinfo *m_info)
-{
-	g_i = -1;
-	while (++g_i < m_info->rc.y)
+	if (i == 0 || j == 0 || i == size.y - 1
+		|| j == size.x - 1 || map[i][j] == ' ')
+		return (0);
+	map[i][j] = '1';
+	d = 0;
+	while (d < 4)
 	{
-		g_j = -1;
-		while (++g_j < m_info->rc.x)
-		{
-			if (ft_strchr(" 012", m_info->map[g_i][g_j]) != 0)
-				continue ;
-			if (ft_strchr("NEWS", m_info->map[g_i][g_j]) != 0)
-			{
-				m_info->news = m_info->map[g_i][g_j];
-				m_info->pos.x = g_j;
-				m_info->pos.y = g_i;
-				m_info->map[g_i][g_j] = '0';
-			}
-			else
-				return (0);
-		}
-	}
-	return (m_info->news != 0);
-}
-
-int	check_bound(t_mapinfo *m_info, t_pos_doub *que, int visit[][g_mapinfo.rc.x])
-{
-	que[g_rp++] = m_info->pos;
-	visit[(int)m_info->pos.y][(int)m_info->pos.x] = 1;
-	while (g_rp < g_wp)
-	{
-		g_q = que[g_wp++];
-		g_i = -1;
-		while (++g_i < 4)
-		{
-			g_nq.x = (int)g_q.x + g_dx[g_i];
-			g_nq.y = (int)g_q.y + g_dy[g_i];
-			if (g_nq.y < 1 || g_nq.y >= m_info->rc.y - 1 || g_nq.x < 1 ||
-g_nq.x >= m_info->rc.x || m_info->map[(int)g_nq.y][(int)g_nq.x] == ' ')
-				return (0);
-			if (visit[(int)g_nq.y][(int)g_nq.x] == 1 ||
-				m_info->map[(int)g_nq.y][(int)g_nq.x] == '1')
-				continue;
-			que[g_rp++] = g_nq;
-			visit[(int)g_nq.y][(int)g_nq.x] = 1;
-		}
+		next.x = j + g_dx[d];
+		next.y = i + g_dy[d];
+		if (map[next.y][next.x] != '1'
+			&& !visit(map, next.y, next.x, size))
+			return (0);
+		++d;
 	}
 	return (1);
 }
 
-int	valid_map(t_mapinfo *m_info)
+int	check_bound(char **map, t_pos_int size)
 {
-	t_pos_doub	que[m_info->rc.x * m_info->rc.y];
-	int			visit[m_info->rc.y][m_info->rc.x];
+	int r;
+	int c;
 
-	ft_bzero(que, sizeof(que));
-	ft_bzero(visit, sizeof(visit));
-	if (m_info->rc.x < 3 || m_info->rc.y < 3)
+	r = 1;
+	while (r < size.y)
+	{
+		c = 1;
+		while (c < size.x)
+		{
+			if (map[r][c] != ' ' && map[r][c] != '1' && !visit(map, r, c, size))
+				return (0);
+			++c;
+		}
+		++r;
+	}
+	return (1);
+}
+
+int	check_value(char **map, t_pos_int size)
+{
+	int		i;
+	int		j;
+	char	dir;
+
+	dir = 0;
+	i = -1;
+	while (++i < size.y)
+	{
+		j = -1;
+		while (++j < size.x)
+		{
+			if (ft_strchr(" 012", map[i][j]))
+				continue;
+			if (!ft_strchr("EWSN", map[i][j]) || dir)
+				return (0);
+			dir = map[i][j];
+		}
+	}
+	return (dir);
+}
+
+int	valid_map(t_mapinfo *m_info, int *flag)
+{
+	int			ret;
+	char		**map;
+
+	if (flag[8])
 		return (0);
+	flag[8] = 1;
+	ret = 1;
+	if (m_info->rc.x < 3 || m_info->rc.y < 3)
+		ret = 0;
 	else
 	{
-		make_2darr(m_info);
-		if (!check_value(m_info) || !check_bound(m_info, que, visit))
-			return (0);
+		map = init_map(m_info->map, m_info->rc);
+		if (!check_value(map, m_info->rc) || !check_bound(map, m_info->rc))
+			ret = 0;
+		free_dptr(map, m_info->rc.y);
 	}
-	return (1);
+	return (ret);
 }
