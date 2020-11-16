@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 17:24:05 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 18:09:15 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 static int	g_flag[9];
 static int	g_mflag;
+static int	g_mflag2;
 
 int	read_info(t_mapinfo *m_info, char *line)
 {
 	int		i;
 	char	**temp;
 
-	if (ft_strchr(" 012", line[0]) != 0)
+	if (ft_strchr(" 012", line[0]) != 0 && !g_mflag2)
 	{
 		g_mflag = 1;
 		temp = malloc(sizeof(char *) * (m_info->rc.y + 1));
@@ -70,6 +71,8 @@ int	read_mapfile(t_mapinfo *m_info, char *map_path)
 			return (print_error("file read error"));
 		else if (*line && !read_info(m_info, line))
 			return (print_error("invalid_element"));
+		else if (!(*line) && g_mflag)
+			g_mflag2 = 1;
 		free(line);
 		if (ret == 0)
 			break ;

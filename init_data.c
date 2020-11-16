@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:01 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 17:36:03 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 18:14:31 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	init_mlx(void)
 	g_mapinfo.win.y = ft_max(g_mapinfo.win.y, 300);
 	if ((double)g_mapinfo.win.x / g_mapinfo.win.y > 2.5)
 		g_mapinfo.win.x = g_mapinfo.win.y * 4 / 3;
-	if ((double)g_mapinfo.win.x / g_mapinfo.win.y < 0.7)
+	if ((double)g_mapinfo.win.x / g_mapinfo.win.y < 0.75)
 		g_mapinfo.win.x = g_mapinfo.win.y * 4 / 3;
 	g_mlx.mlx = mlx_init();
 	g_mlx.win = mlx_new_window(g_mlx.mlx, g_mapinfo.win.x,
