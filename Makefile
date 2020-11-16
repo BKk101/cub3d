@@ -1,7 +1,7 @@
 
 CC=gcc
 CFLAGS= -Wall -Werror -Wextra
-LINK= -lft -lgnl -lmlx -framework OpenGL -framework AppKit -L./libft -L./gnl -L./minilibx
+LINK= -lft -lgnl -lmlx -framework OpenGL -framework AppKit -L./libft -L./gnl -L../minilibx
 INCLUDES = -I ./cub3d.h
 NAME=cub3D
 SRCS=$(wildcard *.c)
@@ -13,7 +13,6 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	make -C libft
 	make -C gnl
-	make -C minilibx
 	$(CC) $(CFLAGS) -g $(LINK) -o $@ $^
 
 %.o: %.c
@@ -21,7 +20,6 @@ $(NAME) : $(OBJS)
 
 clean :
 	rm -f $(OBJS)
-	make clean -C minilibx
 	make clean -C libft
 	make clean -C gnl
 

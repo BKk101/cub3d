@@ -6,14 +6,14 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:35:37 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 09:19:55 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 10:32:08 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "./minilibx/mlx.h"
+# include "./mlx.h"
 # include "./libft/libft.h"
 # include "./gnl/get_next_line.h"
 # include <fcntl.h>
