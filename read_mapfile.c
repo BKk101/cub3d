@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 15:45:38 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 17:24:05 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,10 @@ int	read_info(t_mapinfo *m_info, char *line)
 		while (++i < m_info->rc.y)
 			temp[i] = m_info->map[i];
 		temp[i] = ft_strjoin(line, "");
-		free(m_info->map);
-		m_info->rc.y++;
+		if (m_info->map)
+			free(m_info->map);
 		m_info->map = temp;
+		m_info->rc.y++;
 		m_info->rc.x = (int)ft_strlen(line) > m_info->rc.x ?
 			(int)ft_strlen(line) : m_info->rc.x;
 	}

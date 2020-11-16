@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:01 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 09:34:26 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 17:23:19 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	init_window(void)
 int		init_data(void)
 {
 	int i;
-
+			
 	init_mlx();
 	init_window();
 	init_mapdata(&g_mapinfo);

@@ -1,0 +1,17 @@
+R 800 500
+
+EA ./images/greystone.xpm
+SO ./images/bluestone.xpm
+WE ./images/purplestone.xpm
+NO ./images/colorstone.xpm
+
+S ./images/barrel.xpm
+F 220,100,0
+C 225,30,0
+
+111111
+1000201111     
+111100000111
+11  11000W11
+111111110011
+     111111111111

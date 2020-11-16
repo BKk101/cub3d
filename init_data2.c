@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:09 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:29:10 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 17:28:04 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	init_mapdata(t_mapinfo *m_info)
 	while (++i < m_info->rc.y)
 	{
 		j = -1;
-		while (++j < m_info->rc.x)
+		while (++j < (int)ft_strlen(m_info->map[i]))
 		{
 			if (ft_strchr("NEWS", m_info->map[i][j]) != 0)
 			{
 				m_info->news = m_info->map[i][j];
-				m_info->pos.x = j;
-				m_info->pos.y = i;
+				m_info->pos.x = j + 0.5;
+				m_info->pos.y = i + 0.5;
 				m_info->map[i][j] = '0';
 				return ;
 			}
