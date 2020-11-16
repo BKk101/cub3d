@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:14 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:29:15 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 08:21:26 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void	update_player(char **map, t_player *player)
 	player->movespeed = frametime * 7;
 	player->rotspeed = frametime * 3;
 	if (player->key == 'W' || player->key == 'S')
-		Move(map, player);
+		move(map, player);
 	else if (player->key == 'A' || player->key == 'D')
-		Move2(map, player);
+		move2(map, player);
 	else if (player->key == 'R' || player->key == 'L')
 	{
-		Rotate(&player->dir, player);
-		Rotate(&player->plane, player);
+		rotate(&player->dir, player);
+		rotate(&player->plane, player);
 	}
 }
 

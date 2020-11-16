@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:29:50 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 08:50:11 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ int	get_fc(t_mapinfo *m_info, char **str, int idx)
 {
 	int		i;
 	int		ret;
-	int		cnt;
 	char	**substr;
 
 	ret = 0;
 	substr = ft_split(str[1], ',');
-	if ((count_chars(str[1], ',') == 2) && (cnt = ft_dptrlen(substr)) == 3)
+	if ((count_chars(str[1], ',') == 2) && (ft_dptrlen(substr) == 3))
 	{
 		i = -1;
 		while (++i < 3)
@@ -43,7 +42,7 @@ int	get_fc(t_mapinfo *m_info, char **str, int idx)
 		}
 		ret = (i == 3);
 	}
-	free_dptr(substr, cnt);
+	free_dptr(substr, ft_dptrlen(substr));
 	return (ret);
 }
 

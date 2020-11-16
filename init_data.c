@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:01 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:29:02 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 08:25:28 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		init_texture(void)
 			&tmp, &tmp);
 	}
 	if (!img)
-		Error("invalid_texture_file");
+		print_error("invalid_texture_file");
 	return (img != 0);
 }
 

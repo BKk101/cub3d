@@ -1,7 +1,7 @@
 R 800 500
 
 EA ./images/redbrick.xpm
-SO ./images/eagle.xpm
+SO ./images/greystone.xpm
 WE ./images/wood.xpm
 NO ./images/eagle.xpm
 

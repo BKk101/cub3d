@@ -6,13 +6,13 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:28 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:29:29 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 08:21:09 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./cub3d.h"
 
-void	Rotate(t_pos_doub *vec, t_player *player)
+void	rotate(t_pos_doub *vec, t_player *player)
 {
 	int		d;
 	double	oldx;
@@ -25,7 +25,7 @@ void	Rotate(t_pos_doub *vec, t_player *player)
 	vec->y = oldx * sin(d * rad) + vec->y * cos(d * rad);
 }
 
-void	Move(char **map, t_player *player)
+void	move(char **map, t_player *player)
 {
 	int			d;
 	t_pos_doub	delt;
@@ -39,7 +39,7 @@ void	Move(char **map, t_player *player)
 		player->pos.y += d * delt.y;
 }
 
-void	Move2(char **map, t_player *player)
+void	move2(char **map, t_player *player)
 {
 	int			d;
 	t_pos_doub	delt;

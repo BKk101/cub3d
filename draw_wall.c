@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:28:53 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:28:55 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 08:30:22 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	calc_tex_info(t_wallinfo *wallinfo, t_vars *vars)
 	wallinfo->tex_h = vars->texture[wallinfo->tex_n].size.y;
 	wallinfo->tex_x = (int)(wallinfo->wall_x * (double)wallinfo->tex_w);
 	if ((wallinfo->ray.side == 0 && wallinfo->ray.dir.x > 0) ||
-			(wallinfo->ray.side == 1 && wallinfo->ray.dir.y < 0))
-			wallinfo->tex_x = wallinfo->tex_w - wallinfo->tex_x - 1;
+		(wallinfo->ray.side == 1 && wallinfo->ray.dir.y < 0))
+		wallinfo->tex_x = wallinfo->tex_w - wallinfo->tex_x - 1;
 	wallinfo->step = 1.0 * wallinfo->tex_h / wallinfo->line_h;
 	wallinfo->tex_pos = (wallinfo->draw_s - vars->window.hei / 2
 		+ wallinfo->line_h / 2) * wallinfo->step;

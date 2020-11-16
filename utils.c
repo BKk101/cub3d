@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:43 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:29:44 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 08:22:28 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_min(int a, int b)
 	return (a < b ? a : b);
 }
 
-int		Error(char *s)
+int		print_error(char *s)
 {
 	ft_putendl_fd("Error", 2);
 	ft_putendl_fd(s, 2);

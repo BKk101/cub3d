@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/11/16 03:35:37 by bykim             #+#    #+#             */
+/*   Updated: 2020/11/16 08:22:18 by bykim            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
 
@@ -136,7 +148,7 @@ extern	t_mlx		g_mlx;
 extern	t_mapinfo	g_mapinfo;
 extern	t_vars		g_vars;
 
-int					Read_mapfile(t_mapinfo *m_info, char *map_path);
+int					read_mapfile(t_mapinfo *m_info, char *map_path);
 
 int					init_data(void);
 char				**init_map(char **strs, t_pos_int size);
@@ -146,10 +158,10 @@ void				update_player(char **map, t_player *player);
 void				update_scene(void);
 void				redraw(t_mlx mlx);
 
-int					Key_press(int keycode, t_vars *vars);
-int					Key_release(int keycode, t_vars *vars);
-int					Mouse(int button, int x, int y, t_vars *vars);
-int					Exit(int vars);
+int					key_press(int keycode, t_vars *vars);
+int					key_release(int keycode, t_vars *vars);
+int					mouse(int button, int x, int y, t_vars *vars);
+int					exit_prog(int vars);
 
 double				calc_pwall_dist(t_vars *vars, t_ray *ray);
 t_ray				init_ray(t_player player, int x, int w);
@@ -160,14 +172,14 @@ t_pos_doub			calc_delta_dist(t_ray ray);
 void				draw_wall(t_vars *vars);
 void				draw_background(t_window *window, int *floor, int *ceil);
 void				draw_sprite(t_vars *vars);
-void				Rotate(t_pos_doub *vec, t_player *player);
-void				Move(char **map, t_player *player);
-void				Move2(char **map, t_player *player);
+void				rotate(t_pos_doub *vec, t_player *player);
+void				move(char **map, t_player *player);
+void				move2(char **map, t_player *player);
 
 int					valid_map(t_mapinfo *m_info, int *flag);
 int					valid_elem(t_mapinfo *m_info, int *flag);
 
-int					Error(char *s);
+int					print_error(char *s);
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);
 int					ft_dptrlen(char **dptr);

@@ -14,10 +14,10 @@ $(NAME) : $(OBJS)
 	make -C libft
 	make -C gnl
 	make -C minilibx
-	$(CC) -g $(LINK) -o $@ $^
+	$(CC) $(CFLAGS) -g $(LINK) -o $@ $^
 
 %.o: %.c
-	$(CC) $(INCLUDES) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
 
 clean :
 	rm -f $(OBJS)
@@ -32,4 +32,4 @@ fclean : clean
 
 re : fclean all
 
-bonus :
+bonus : all

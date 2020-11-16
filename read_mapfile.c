@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:29:36 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 08:46:31 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	read_info(t_mapinfo *m_info, char *line)
 		free(m_info->map); //제일처음 널포인터 프리?
 		m_info->rc.y++;
 		m_info->map = temp;
-		m_info->rc.x = ft_strlen(line) > m_info->rc.x ?
-			ft_strlen(line) : m_info->rc.x;
+		m_info->rc.x = (int)ft_strlen(line) > m_info->rc.x ?
+			(int)ft_strlen(line) : m_info->rc.x;
 	}
 	else if (ft_strchr("RNSWEFC", line[0]) != 0)
 		m_info->elem[m_info->elem_num++] = ft_strjoin(line, "");
@@ -50,28 +50,28 @@ int	check_name(char *map_path)
 	return (ret == 0);
 }
 
-int	Read_mapfile(t_mapinfo *m_info, char *map_path)
+int	read_mapfile(t_mapinfo *m_info, char *map_path)
 {
 	int		fd;
 	int		ret;
 	char	*line;
 
 	if (!check_name(map_path))
-		return (Error("invalid_file_name"));
+		return (print_error("invalid_file_name"));
 	if ((fd = open(map_path, O_RDONLY)) == -1)
-		return (Error(strerror(errno)));
+		return (print_error(strerror(errno)));
 	while (1)
 	{
 		if ((ret = get_next_line(fd, &line)) == -1)
-			return (Error("file read error"));
+			return (print_error("file read error"));
 		else if (*line && !read_info(m_info, line))
-			return (Error("invalid_element"));
+			return (print_error("invalid_element"));
 		free(line);
 		if (ret == 0)
 			break ;
 	}
 	close(fd);
 	if (!valid_map(m_info, g_flag) || !valid_elem(m_info, g_flag))
-		return (Error("invalid_element"));
+		return (print_error("invalid_element"));
 	return (0);
 }
