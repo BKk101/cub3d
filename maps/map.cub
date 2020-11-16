@@ -5,7 +5,7 @@ SO ./images/greystone.xpm
 WE ./images/wood.xpm
 NO ./images/eagle.xpm
 
-S ./images/barrel.xpm
+S ./images/pillar.xpm
 F 220,100,0
 C 225,30,0
 
