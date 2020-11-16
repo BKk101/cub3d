@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:01 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 08:25:28 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 09:34:26 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		init_data(void)
 	init_window();
 	init_mapdata(&g_mapinfo);
 	g_vars.map.size = g_mapinfo.rc;
-	g_vars.map.data = g_mapinfo.map;
+	g_vars.map.data = init_map(g_mapinfo.map, g_mapinfo.rc);
 	if (init_texture() == 0)
 		return (0);
 	init_sprite();

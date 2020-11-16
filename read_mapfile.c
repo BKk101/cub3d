@@ -6,13 +6,13 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:25:49 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 08:46:31 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 09:20:26 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./cub3d.h"
 
-static int	g_flag[9]; // r, no, so, we, ea, s, f, c, map
+static int	g_flag[9];
 
 int	read_info(t_mapinfo *m_info, char *line)
 {
@@ -26,13 +26,13 @@ int	read_info(t_mapinfo *m_info, char *line)
 		while (++i < m_info->rc.y)
 			temp[i] = m_info->map[i];
 		temp[i] = ft_strjoin(line, "");
-		free(m_info->map); //제일처음 널포인터 프리?
+		free(m_info->map);
 		m_info->rc.y++;
 		m_info->map = temp;
 		m_info->rc.x = (int)ft_strlen(line) > m_info->rc.x ?
 			(int)ft_strlen(line) : m_info->rc.x;
 	}
-	else if (ft_strchr("RNSWEFC", line[0]) != 0)
+	else if (ft_strchr("RNSWEFC", line[0]) != 0 && m_info->elem_num < 9)
 		m_info->elem[m_info->elem_num++] = ft_strjoin(line, "");
 	else
 		return (0);

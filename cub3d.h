@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:35:37 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 08:22:18 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 09:19:55 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef struct		s_vars {
 typedef struct		s_mapinfo {
 	char			news;
 	char			**map;
-	char			*elem[100];
+	char			*elem[10];
 	char			*path_list[5];
 	int				elem_num;
 	int				fc_rgb[2][3];
