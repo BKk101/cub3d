@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 03:29:54 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 03:29:55 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 15:45:52 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ int	check_bound(char **map, t_pos_int size)
 	int r;
 	int c;
 
-	r = 1;
+	r = 0;
 	while (r < size.y)
 	{
-		c = 1;
+		c = 0;
 		while (c < size.x)
 		{
 			if (map[r][c] != ' ' && map[r][c] != '1' && !visit(map, r, c, size))
