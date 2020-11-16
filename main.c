@@ -6,7 +6,7 @@
 /*   By: bykim <bykim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/04 18:26:02 by bykim             #+#    #+#             */
-/*   Updated: 2020/11/16 17:46:23 by bykim            ###   ########.fr       */
+/*   Updated: 2020/11/16 19:54:10 by bykim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	loop(t_mlx *mlx)
 int	main(int argc, char **argv)
 {
 	if (argc > 3 || argc == 1
-		|| (argc == 3 && ft_strncmp("--save", argv[2], 6) != 0))
+		|| (argc == 3 && ft_strncmp("--save", argv[2], 7) != 0))
 		return (print_error("invalid argument"));
 	if (read_mapfile(&g_mapinfo, argv[1]) == -1)
 		return (-1);
