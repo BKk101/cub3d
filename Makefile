@@ -13,7 +13,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	make -C libft
 	make -C gnl
-	$(CC) $(CFLAGS) -g $(LINK) -o $@ $^
+	$(CC) $(CFLAGS) $(LINK) -o $@ $^
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o $@ -c $<
